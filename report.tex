@@ -150,13 +150,13 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
 
 \begin{center}
 \begin{tabular}{c}
-\multicolumn{1}{c}{\textbf{{\Large MÔ HÌNH HÓA TOÁN HỌC (CO2011)}}}\\
+\multicolumn{1}{c}{\textbf{{\Large Đồ án tổng hợp - CNPM (CO3103)}}}\\
 ~~\\
 \hline
 \\
 \multicolumn{1}{l}{\textbf{{\Large Bài tập lớn}}}\\
 \\
-\textbf{\textit{{\Huge "Cutting Stock Problem"}}}\\
+\textbf{\textit{{\Huge "Ứng dụng nghe nhạc trực tuyến"}}}\\
 \\
 \hline
 \end{tabular}
@@ -168,11 +168,11 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
 \centering
     \begin{tabular}{rl}
     \hspace{3 cm}\textbf{GVHD}:
-    & Mai Xuân Toàn\\
+    & ThS. Trần Trương Tuấn Phát\\
 
     & \\[10pt]
 \textbf{Sinh viên}: & Lư Chấn Vũ - 2313955 \emph{(Lớp L04 - Nhóm 122, \textbf{Leader})} \\
-& Vũ Minh Sang - 2312944 \emph{(Lớp L04 - Nhóm 122)} \\
+& Nguyễn Phú Vinh - 2313922 \emph{(Lớp L04 - Nhóm 122)} \\
 & Nguyễn Quang Huy - 2311202 \emph{(Lớp L01 - Nhóm 122)} \\
 & Lê Minh Khoa - 2311593 \emph{(Lớp L04 - Nhóm 122)} \\
 & Lê Minh Trí - 2313593 \emph{(Lớp L04 - Nhóm 122)} \\
@@ -200,7 +200,7 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
 \addcontentsline{toc}{section}{\listfigurename}
 \addcontentsline{toc}{section}{\listtablename}
 
-% }
+% 
 
 % Member list
 \section*{Danh sách thành viên và nhiệm vụ}
@@ -243,10 +243,159 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
 \end{center}
 
 \pagebreak
+\section*{Nội dung báo cáo}
 
+% Quản lý tài khoản - Người dùng
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3} % tăng khoảng cách dòng trong bảng
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Use case name} & Quản lý tài khoản \\ \hline
+\textbf{Created by}    & Vinh \\ \hline
+\textbf{Actors}        & Người Dùng \\ \hline
+\textbf{Description}   & Nơi để Người Dùng có thể quản lý tài khoản của mình (cập nhật thông tin cá nhân, đổi mật khẩu, đăng nhập, đăng ký, đăng xuất). \\ \hline
+\textbf{Trigger}       & Người Dùng chọn chức năng “Quản lý tài khoản” trên giao diện hệ thống sau khi đăng nhập thành công. \\ \hline
+\textbf{Pre-Condition(s)} 
+& 1. Thiết bị của Người Dùng phải được kết nối internet. \newline
+  2. Hệ thống hoạt động bình thường. \\ \hline
+\textbf{Post-Condition(s)} 
+& Thông tin tài khoản được cập nhật và lưu trữ an toàn trong hệ thống. \\ \hline
+\textbf{Normal Flow}   
+& 1. Người Dùng chọn vào phần “Quản lý tài khoản” trong giao diện hệ thống. \newline
+  2. Hệ thống hiển thị thông tin tài khoản hiện tại. \newline
+  3. Người Dùng chọn hành động: chỉnh sửa thông tin cá nhân / đổi mật khẩu / thiết lập bảo mật. \newline
+  4. Người Dùng nhập thông tin mới hoặc thay đổi cần thiết. \newline
+  5. Người Dùng xác nhận và lưu thay đổi. \newline
+  6. Hệ thống cập nhật dữ liệu và thông báo thành công. \\ \hline
+\textbf{Exception Flow} 
+& 3a. Nếu hệ thống không tải được thông tin tài khoản thì hiển thị lỗi “Không thể tải dữ liệu”. \newline
+  4a. Nếu thông tin nhập sai định dạng (ví dụ email không hợp lệ, mật khẩu quá ngắn), hệ thống thông báo lỗi và yêu cầu nhập lại. \newline
+  5a. Nếu kết nối internet bị gián đoạn trong khi lưu, hệ thống hiển thị thông báo thất bại và yêu cầu thử lại. \\ \hline
+\textbf{Alternative Flow} 
+& 3b. Người Dùng có thể hủy thao tác và quay lại trang chính mà không thay đổi gì. \newline
+  4b. Người Dùng có thể bật/tắt các tính năng nâng cao như xác thực 2 lớp. \newline
+  5b. Người Dùng có thể tải xuống bản sao dữ liệu tài khoản của mình để lưu trữ. \\ \hline
+\end{tabularx}
+\caption{Mô tả usecase Quản lý tài khoản}
+\end{table}
+
+% Tương tác - Người dùng
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3} % tăng khoảng cách dòng trong bảng
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Use case name} & Tương tác \\ \hline
+\textbf{Created by}    & Vinh \\ \hline
+\textbf{Actors}        & Người Dùng \\ \hline
+\textbf{Description}   & Người Dùng có thể thực hiện các hành động tương tác trong hệ thống như: thích (like) bài hát, bình luận bài hát, theo dõi nghệ sĩ, chia sẻ bài hát/nghệ sĩ/playlist với bạn bè hoặc lên mạng xã hội. \\ \hline
+\textbf{Trigger}       & Người Dùng chọn một bài hát, nghệ sĩ hoặc playlist bất kỳ trong hệ thống và mở giao diện chi tiết. \\ \hline
+\textbf{Pre-Condition(s)} 
+& 1. Thiết bị của Người Dùng phải được kết nối internet. \newline
+  2. Người Dùng đã đăng nhập thành công. \\ \hline
+\textbf{Post-Condition(s)} 
+& Hệ thống lưu lại thông tin tương tác (like, bình luận, theo dõi, chia sẻ) và cập nhật dữ liệu liên quan. \\ \hline
+\textbf{Normal Flow}   
+& 1. Người Dùng chọn một bài hát/nghệ sĩ/playlist. \newline
+  2. Hệ thống hiển thị chi tiết bài hát/nghệ sĩ/playlist. \newline
+  3. Người Dùng chọn hành động muốn thực hiện: \newline
+  \cach 3a. Nhấn nút “Thích” (Like) để thêm vào danh sách yêu thích. \newline
+  \cach 3b. Viết và gửi bình luận cho bài hát. \newline
+  \cach 3c. Nhấn “Theo dõi” để theo dõi nghệ sĩ. \newline
+  \cach 3d. Chọn “Chia sẻ” và lựa chọn kênh chia sẻ (bạn bè trong ứng \cach dụng, mạng xã hội). \newline
+  4. Hệ thống xác nhận và cập nhật thông tin tương tác. \\ \hline
+\textbf{Exception Flow} 
+& 2a. Nếu bài hát/nghệ sĩ/playlist không tồn tại hoặc bị xóa $\rightarrow$ hiển thị thông báo lỗi. \newline
+  3b1. Nếu bình luận chứa nội dung vi phạm chính sách $\rightarrow$ hệ thống từ chối đăng và hiển thị thông báo. \newline
+  3d1. Nếu chia sẻ thất bại do mất kết nối internet $\rightarrow$ hiển thị thông báo “Chia sẻ không thành công, vui lòng thử lại”. \\ \hline
+\textbf{Alternative Flow} 
+& 3a1. Người Dùng có thể “Bỏ thích” (Unlike) nếu trước đó đã thích. \newline
+  3b2. Người Dùng có thể chỉnh sửa hoặc xóa bình luận đã đăng. \newline
+  3c1. Người Dùng có thể hủy theo dõi nghệ sĩ. \newline
+  3d2. Người Dùng có thể sao chép đường dẫn (link) thay vì chia sẻ trực tiếp. \\ \hline
+\end{tabularx}
+\caption{Mô tả usecase Tương tác}
+\end{table}
+
+% Nghe nhạc - Người dùng
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3} % tăng khoảng cách dòng trong bảng
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Use case name} & Nghe nhạc \\ \hline
+\textbf{Created by}    & Vinh \\ \hline
+\textbf{Actors}        & Người Dùng \\ \hline
+\textbf{Description}   & Người Dùng có thể phát và điều khiển nhạc với nhiều tính năng nâng cao: phát/tạm dừng, tiếp tục, chuyển tiếp/lùi lại, bật chế độ nghe ngẫu nhiên, nghe lặp lại (một bài hoặc toàn bộ danh sách), thêm bài vào hàng chờ, cài giờ tắt nhạc (sleep timer), và xem lời bài hát. \\ \hline
+\textbf{Trigger}       & Người Dùng chọn một bài hát/playlist/album và nhấn nút “Phát nhạc”. \\ \hline
+\textbf{Pre-Condition(s)} 
+& 1. Thiết bị của Người Dùng phải được kết nối internet. \newline
+  2. Ứng dụng được cấp quyền truy cập âm thanh. \\ \hline
+\textbf{Post-Condition(s)} 
+& Hệ thống phát nhạc theo thao tác của Người Dùng, cập nhật trạng thái trình phát (player state) và lưu lại lịch sử nghe nhạc. \\ \hline
+\textbf{Normal Flow}   
+& 1. Người Dùng chọn một bài hát/playlist/album. \newline
+  2. Hệ thống tải dữ liệu nhạc và bắt đầu phát. \newline
+  3. Người Dùng có thể thực hiện các thao tác điều khiển: \newline
+  \cach 3a. Nhấn “Tạm dừng” (Pause) hoặc “Tiếp tục” (Play). \newline
+  \cach 3b. Nhấn “Chuyển tiếp” (Next) hoặc “Lùi lại” (Previous). \newline
+  \cach 3c. Bật chế độ “Nghe ngẫu nhiên” (Shuffle). \newline
+  \cach 3d. Chọn chế độ “Nghe lặp lại” (Repeat one / Repeat all). \newline
+  \cach 3e. Thêm bài hát vào hàng chờ phát (Queue). \newline
+  \cach 3f. Cài đặt “Giờ tắt nhạc” (Sleep timer). \newline
+  \cach 3g. Xem lời bài hát (Lyrics) nếu có sẵn. \newline
+  4. Hệ thống phản hồi ngay lập tức và cập nhật trình phát nhạc. \\ \hline
+\textbf{Exception Flow} 
+& 2a. Nếu bài hát không thể phát (do bản quyền hoặc lỗi file) $\rightarrow$  hiển thị thông báo. \newline
+  3f1. Nếu Người Dùng cài giờ tắt nhạc nhưng app bị thoát trước thời điểm đó $\rightarrow$ hệ thống không thể tắt nhạc đúng hẹn. \newline
+  3g1. Nếu bài hát không có lời (lyrics) trong cơ sở dữ liệu $\rightarrow$ hiển thị “Chưa có lời bài hát”. \\ \hline
+\textbf{Alternative Flow} 
+& 3a1. Người Dùng có thể sử dụng tai nghe hoặc thiết bị ngoài để điều khiển (nút Play/Pause). \newline
+  3e1. Người Dùng có thể sắp xếp lại thứ tự bài hát trong hàng chờ. \newline
+  3f2. Người Dùng có thể hủy hoặc thay đổi thời gian sleep timer. \\ \hline
+\end{tabularx}
+\caption{Mô tả usecase Nghe nhạc}
+\end{table}
+
+% Khám phá và tìm kiếm - Người dùng
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3} % tăng khoảng cách dòng trong bảng
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Use case name} & Khám phá và tìm kiếm \\ \hline
+\textbf{Created by}    & Vinh \\ \hline
+\textbf{Actors}        & Người Dùng \\ \hline
+\textbf{Description}   & Người Dùng có thể tìm kiếm bài hát, nghệ sĩ, album, playlist và khám phá nhạc mới thông qua bảng xếp hạng, xu hướng (trending) và gợi ý cá nhân hóa. \\ \hline
+\textbf{Trigger}       & Người Dùng mở thanh tìm kiếm hoặc tab “Khám phá” trong ứng dụng. \\ \hline
+\textbf{Pre-Condition(s)} 
+& Thiết bị của Người Dùng phải được kết nối internet. \\ \hline
+\textbf{Post-Condition(s)} 
+& Hệ thống trả về kết quả tìm kiếm hoặc danh sách nhạc khám phá phù hợp, cho phép Người Dùng chọn và nghe nhạc ngay. \\ \hline
+\textbf{Normal Flow}   
+& 1. Người Dùng mở tính năng Tìm kiếm/Khám phá. \newline
+  2. Người Dùng có thể thực hiện: \newline
+  \cach 2a. Nhập từ khóa để tìm bài hát, nghệ sĩ, album, playlist. \newline
+  \cach 2b. Xem danh sách Trending hoặc Top Chart. \newline
+  \cach 2c. Nhận gợi ý nhạc cá nhân hóa dựa trên lịch sử nghe, lượt thích và nghệ sĩ theo dõi. \newline
+  3. Hệ thống hiển thị danh sách kết quả. \newline
+  4. Người Dùng chọn nội dung mong muốn (phát nhạc, xem chi tiết nghệ sĩ/album/playlist). \\ \hline
+\textbf{Exception Flow} 
+& 2a1. Nếu không tìm thấy kết quả $\rightarrow$ hiển thị thông báo “Không tìm thấy nội dung phù hợp”. \newline
+  2b1. Nếu hệ thống chưa có dữ liệu trending/top chart $\rightarrow$ hiển thị “Dữ liệu đang cập nhật”. \newline
+  2c1. Nếu Người Dùng mới/ẩn danh (không đăng nhập) chưa có lịch sử nghe $\rightarrow$ gợi ý nhạc phổ biến mặc định. \\ \hline
+\textbf{Alternative Flow} 
+& 2a2. Người Dùng có thể dùng bộ lọc nâng cao (theo thể loại, thời lượng, năm phát hành…). \newline
+  2b2. Người Dùng có thể chọn xem bảng xếp hạng theo từng khu vực/quốc gia. \newline
+  2c2. Người Dùng có thể cập nhật gợi ý bằng cách thay đổi sở thích cá nhân (genres, mood…). \\ \hline
+\end{tabularx}
+\caption{Mô tả usecase Khám phá và tìm kiếm}
+\end{table}
 % for testing
 % REFERENCES
-\pagebreak
+% \pagebreak
+\newpage
 \nocite{*}
 \printbibliography[
 heading=bibintoc,
