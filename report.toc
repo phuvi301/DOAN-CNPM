@@ -1,5 +1,0 @@
-\contentsline {section}{Danh sách kí hiệu}{2}{section*.4}%
-\contentsline {section}{Danh sách từ viết tắt}{2}{section*.6}%
-\contentsline {section}{Danh sách hình ảnh}{4}{section*.9}%
-\contentsline {section}{Danh sách bảng biểu}{4}{section*.9}%
-\contentsline {section}{Danh sách thành viên và nhiệm vụ}{4}{section*.10}%
