@@ -404,7 +404,8 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
 \textbf{Trigger}       & Người dùng truy cập danh sách nhạc và chọn một chức năng quản lý danh sách nhạc (tạo danh sách, thêm bài hát, xóa bài hát, xóa danh sách, .v.v). \\ \hline
 \textbf{Pre-Condition(s)} 
 & 1. Thiết bị của Người dùng phải được kết nối internet. \newline
-  2. Người dùng đã đăng nhập thành công. \\ \hline
+  2. Người dùng đã đăng nhập thành công. \newline
+  3. Hệ thống có ít nhất một bài hát. \\ \hline
 \textbf{Post-Condition(s)} 
 & 1. Danh sách nhạc của User được cập nhật theo hành động đã thực hiện (thêm, sửa, xóa). \newline
   2. Người dùng nhận được thông báo về kết quả của hành động. \\ \hline
@@ -418,7 +419,7 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
   \cach 3d. Người dùng chọn ``Xóa playlist'', hệ thống hiển thị thông báo xác nhận, người dùng xác nhận. \newline
   4. Hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \\ \hline
 \textbf{Exception Flow} 
-& 1. Nếu lỗi xảy ra (mất kết nối máy chủ, hệ thống bận, .v.v), mọi yêu cầu từ người dùng đều bị từ chối và hệ thống sẽ hiển thị thông báo ``Server is under maintenance''. \newline
+& 1. Nếu lỗi xảy ra (mất kết nối máy chủ, hệ thống bận, .v.v), mọi yêu cầu từ người dùng đều bị từ chối và hệ thống sẽ hiển thị thông báo ``Đang trong quá trình bảo trì''. \newline
   3a. Nếu người dùng nhập tên playlist đã tồn tại, hệ thống thông báo lỗi và yêu cầu người dùng nhập lại. \newline
   3b. Nếu người dùng thêm 1 bài hát đã tồn tại trong playlist, hệ thống hiển thị thông báo đã tồn tại và không cập nhật bài hát. \\ \hline
 \textbf{Alternative Flow} 
