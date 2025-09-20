@@ -411,20 +411,21 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
 \textbf{Normal Flow}   
 & 1. Người dùng truy cập vào phần “Danh sách nhạc của tôi” trong giao diện hệ thống. \newline
   2. Hệ thống hiển thị danh sách nhạc của người dùng hiện tại. \newline
-  3. Người Dùng chọn hành động: Tạo playlist mới, Thêm bài hát vào playlist, Xóa bài hát khỏi playlist, Xóa playlist. \newline
-  \cach 3a. Tạo playlist mới: Người dụng chọn Tạo playlist mới, hệ thống hiển thị yêu cầu người dùng nhập tên, người dùng nhập và nhấn xác nhận, hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \newline
-  \cach 3b. Thêm bài hát vào playlist: Người dùng tìm kiếm và chọn bài hát muốn thêm và chọn playlist muốn thêm, hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \newline
-  \cach 3c. Xóa bài hát khỏi playlist: Người dùng chọn playlist chứa bài hát cần xóa, người dùng chọn bài hát cần xóa trong playlist, hệ thống hiển thị thông báo xác nhận, người dùng xác nhận, hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \newline
-  \cach 3d. Xóa playlist: Người dùng chọn playlist muốn xóa, hệ thống hiển thị thông báo xác nhận, người dùng xác nhận, hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \\ \hline
+  3. Người dùng thực hiện thao tác điều khiển: \newline
+  \cach 3a. Người dụng chọn ``Tạo playlist mới'', hệ thống hiển thị yêu cầu điền tên playlist, người dùng nhập và nhấn xác nhận. \newline
+  \cach 3b. Người dùng chọn ``Thêm vào playlist'' với bài hát muốn thêm, hệ thống yêu cầu chọn playlist muốn thêm, người dùng chọn và nhấn xác nhận. \newline
+  \cach 3c. Người dùng chọn ``Xóa khỏi playlist'' với bài hát muốn xóa, hệ thống hiển thị thông báo xác nhận, người dùng xác nhận. \newline
+  \cach 3d. Người dùng chọn ``Xóa playlist'', hệ thống hiển thị thông báo xác nhận, người dùng xác nhận. \newline
+  4. Hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \\ \hline
 \textbf{Exception Flow} 
-& 3a1. Tên playlist bị trùng: Nếu người dùng nhập tên playlist đã tồn tại, hệ thống thông báo lỗi và yêu cầu người dùng nhập lại. \newline
-  3b1. Bài hát đã có trong playlist: Nếu người dùng cố gắng thêm 1 bài hát đã tồn tại trong playlist, hệ thống hiển thị thông báo đã tồn tại và không cập nhật bài hát. \newline
-  1. Lỗi hệ thống: Nếu lỗi xảy ra (mất kết nối máy chủ, hệ thống bận, .v.v), mọi yêu cầu từ người dùng đều bị từ chối và hệ thống sẽ hiển thị thông báo "đang trong quá trình bảo trì". \\ \hline
+& 1. Nếu lỗi xảy ra (mất kết nối máy chủ, hệ thống bận, .v.v), mọi yêu cầu từ người dùng đều bị từ chối và hệ thống sẽ hiển thị thông báo ``Server is under maintenance''. \newline
+  3a. Nếu người dùng nhập tên playlist đã tồn tại, hệ thống thông báo lỗi và yêu cầu người dùng nhập lại. \newline
+  3b. Nếu người dùng thêm 1 bài hát đã tồn tại trong playlist, hệ thống hiển thị thông báo đã tồn tại và không cập nhật bài hát. \\ \hline
 \textbf{Alternative Flow} 
-& 3a. Tên playlist trống: Người dùng không đặt tên mà trực tiếp xác nhận, hệ thống vẫn sẽ ghi nhận và đặt tên theo format mặc định "Playlist - UUID".\newline
-  3c/3d. Người dùng không xác nhận thao tác: Hệ thống hoàn tác toàn bộ thao tác của người dùng và cập nhật lại trạng thái ban đầu của danh sách playlist. \\ \hline
+& 3a. Người dùng không đặt tên mà trực tiếp xác nhận, hệ thống vẫn sẽ ghi nhận và đặt tên theo format mặc định ``Unname Playlist''.\newline
+  3c/3d. Nếu người dùng không xác nhận, hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của danh sách playlist. \\ \hline
 \end{tabularx}
-\caption{Mô tả usecase Quản lý danh sach nhạc}
+\caption{Mô tả usecase Quản lý danh sách nhạc}
 \end{table}
 
 \begin{table}[h!]
@@ -445,19 +446,20 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
 \textbf{Normal Flow}   
 & 1. Quản lý truy cập vào trang quản lý hệ thống với tài khoản có quyền quản trị. \newline
   2. Hệ thống điều hướng đến trang quản trị hệ thống. \newline
-  3. Quản lý có thể lựa chọn hành động: Quản lý người dùng, quản lý nội dung, xác minh bản quyền, sửa đổi metadata. \newline
-  \cach 3a. Quản lý người dùng: Quản lý có thể xem, sửa (đối với quyền truy cập), xóa người dùng. \newline
-  \cach 3b. Quản lý nội dung: Duyệt, phê duyệt, gỡ bỏ nội dung, bài hát, album công khai thủ công. \newline
-  \cach 3c. Xác minh bản quyền: Kiểm tra tính minh bạch và bản quyền của nội dung đăng tải. \newline
-  \cach 3d. Sửa đổi metadata: Cập nhật các thuộc tính của nội dung phù hợp với chính sách. \\ \hline
-  4. Hệ thống tự động ghi log đảm bảo tính minh bạch về sau.
+  3. Quản lý có thể lựa chọn hành động: \newline
+  \cach 3a. Xem, sửa (đối với quyền truy cập), xóa người dùng. \newline
+  \cach 3b. Phê duyệt, gỡ bỏ nội dung, bài hát, album công khai thủ công. \newline
+  \cach 3c. Thay đổi các thông tin của nội dung phù hợp với chính sách. \newline
+  \cach 3d. Kiểm tra tính minh bạch và bản quyền của nội dung đăng tải. \newline
+  4. Hệ thống thông báo thao tác thành công. \newline
+  5. Hệ thống tự động ghi log đảm bảo tính minh bạch về sau. \\ \hline
 \textbf{Exception Flow} 
-& 1. Lỗi quyền hạn: Nếu quản lý cố gắng truy cập một chức năng không có quyền, hệ thống sẽ thông báo lỗi "Bạn không có quyền truy cập chức năng này". \newline
-  2. Lỗi dữ liệu: Nếu có lỗi trong quá trình cập nhật dữ liệu (thông tin không hợp lệ, .v.v), hệ thống sẽ hiển thị thông báo lỗi và không thực hiện thay đổi. \newline
-  1. Lỗi hệ thống: Nếu lỗi xảy ra (mất kết nối máy chủ, hệ thống bận, .v.v), mọi yêu cầu từ người dùng đều bị từ chối và hệ thống sẽ hiển thị thông báo "đang trong quá trình bảo trì". \\ \hline
+& 3.1. Nếu quản lý cố gắng truy cập một chức năng không có quyền, hệ thống sẽ thông báo lỗi ``Bạn không có quyền truy cập chức năng này''. \newline
+  3.2. Nếu có lỗi trong quá trình cập nhật dữ liệu (thông tin không hợp lệ, .v.v), hệ thống sẽ hiển thị thông báo lỗi và không thực hiện thay đổi. \newline
+  3.3. Nếu lỗi xảy ra (mất kết nối máy chủ, hệ thống bận, .v.v), mọi thông tin thay đổi sẽ được lưu tạm thời và hệ thống sẽ hiển thị thông báo ``Đang trong quá trình bảo trì'' cho tới khi có kết nối lại và tự động thực hiện lại thao tác. \\ \hline
 \textbf{Alternative Flow} 
-& 1a. Tài khoản không có quyền quản trị: Hệ thống tự động điều hướng đến giao diện người dùng bình thường. \newline
-  3a/3b/3c/3d. Quản lý không xác nhận thao tác: Hệ thống hoàn tác toàn bộ thao tác của quản lý và cập nhật lại trạng thái ban đầu của nội dung. \\ \hline
+& 1a. Tài khoản không có quyền thì hệ thống tự động điều hướng đến giao diện người dùng bình thường. \newline
+  3a/3b/3c/3d. Nếu thao tác không được xác nhận, hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của nội dung. \\ \hline
 \end{tabularx}
 \caption{Mô tả usecase Quản trị hệ thống}
 \end{table}
