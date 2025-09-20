@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.19)  20 SEP 2025 21:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.19)  20 SEP 2025 22:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1564,65 +1564,62 @@ Package hyperref Warning: bookmark level for unknown subsubsubsection defaults t
 
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 289.
+Package pdftex.def Info: hcmut.png  used on input line 296.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 [5]
 
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 345.
+Package pdftex.def Info: hcmut.png  used on input line 352.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 [6]
 
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 395.
+Package pdftex.def Info: hcmut.png  used on input line 405.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 [7]
 
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 447.
+Package pdftex.def Info: hcmut.png  used on input line 452.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 [8]
 
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 497.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 500.
+Package pdftex.def Info: hcmut.png  used on input line 536.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 [9]
 
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 546.
+LaTeX Warning: Empty bibliography on input line 537.
 
 
 
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 580.
+Package pdftex.def Info: hcmut.png  used on input line 554.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 [10]
-
-File: hcmut.png Graphic file (type png)
-<use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 585.
-(pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
-[11]
-
-LaTeX Warning: Empty bibliography on input line 586.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 623--624
+Underfull \hbox (badness 10000) in paragraph at lines 574--575
 []\T5/cmr/m/n/10 GeeksforGeeks, 2024. In-tro-duc-tion to Greedy Al-go-rithm - Data Struc-tures
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 623--624
+Underfull \hbox (badness 10000) in paragraph at lines 574--575
 \T5/cmr/m/n/10 and Al-go-rithm Tu-to-ri-als. Avail-able at: [][]$\T5/cmtt/m/n/10 https : / / www . geeksforgeeks . org /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 623--624
+Underfull \hbox (badness 10000) in paragraph at lines 574--575
 \T5/cmtt/m/n/10 introduction-[]to-[]greedy-[]algorithm-[]data-[]structures-[]and-[]algorithm-[]tutorials/$[][]
  []
 
@@ -1630,10 +1627,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 623--624
 
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 632.
+Package pdftex.def Info: hcmut.png  used on input line 583.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
-[12]
-runsystem(latexminted cleantemp  --timestamp 20250920210813 E98D2F001DA5678B39482EFBDF5770DC)...disabled (restricted).
+[11]
+runsystem(latexminted cleantemp  --timestamp 20250920222418 E98D2F001DA5678B39482EFBDF5770DC)...disabled (restricted).
 
  
 enddocument/afterlastpage (AED): lastpage setting LastPage.
@@ -1658,17 +1655,17 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 49315 strings out of 468133
- 1024629 string characters out of 5447550
- 2058962 words of memory out of 5000000
+ 49314 strings out of 468133
+ 1024622 string characters out of 5447550
+ 2057962 words of memory out of 5000000
  77199 multiletter control sequences out of 15000+600000
  644915 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  98i,24n,105p,2526b,852s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ASUS\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><D:/MikTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D:/MikTex/fonts/type1/vntex/vnr/vnbx10.pfb><D:/MikTex/fonts/type1/vntex/vnr/vnbx12.pfb><D:/MikTex/fonts/type1/vntex/vnr/vnbxti10.pfb><D:/MikTex/fonts/type1/vntex/vnr/vnr10.pfb><D:/MikTex/fonts/type1/vntex/vnr/vnr8.pfb><D:/MikTex/fonts/type1/vntex/vnr/vnti10.pfb><D:/MikTex/fonts/type1/vntex/vnr/vntt10.pfb><D:/MikTex/fonts/type1/vntex/vnr/vntt8.pfb>
-Output written on report.pdf (13 pages, 211136 bytes).
+Output written on report.pdf (12 pages, 208296 bytes).
 PDF statistics:
- 282 PDF objects out of 1000 (max. 8388607)
- 60 named destinations out of 1000 (max. 500000)
+ 276 PDF objects out of 1000 (max. 8388607)
+ 59 named destinations out of 1000 (max. 500000)
  186 words of extra memory for PDF output out of 10000 (max. 10000000)
 
