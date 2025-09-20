@@ -401,7 +401,7 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
 \textbf{Use case name} & Quản lý danh sách nhạc \\ \hline
 \textbf{Actors}        & Người Dùng \\ \hline
 \textbf{Description}   & Cho phép người dùng xem, thêm, sửa và xóa bài hát trong danh sách nhạc của họ. \\ \hline
-\textbf{Trigger}       & Người dùng truy cập vào trang danh sách nhạc và chọn một chức năng quản lý danh sách nhạc (ví dụ: tạo danh sách, thêm bài hát, xóa bài hát, xóa danh sách, .v.v). \\ \hline
+\textbf{Trigger}       & Người dùng truy cập danh sách nhạc và chọn một chức năng quản lý danh sách nhạc (tạo danh sách, thêm bài hát, xóa bài hát, xóa danh sách, .v.v). \\ \hline
 \textbf{Pre-Condition(s)} 
 & 1. Thiết bị của Người dùng phải được kết nối internet. \newline
   2. Người dùng đã đăng nhập thành công. \\ \hline
@@ -412,16 +412,18 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
 & 1. Người dùng truy cập vào phần “Danh sách nhạc của tôi” trong giao diện hệ thống. \newline
   2. Hệ thống hiển thị danh sách nhạc của người dùng hiện tại. \newline
   3. Người Dùng chọn hành động: Tạo playlist mới, Thêm bài hát vào playlist, Xóa bài hát khỏi playlist, Xóa playlist. \newline
-  \cach 3a. Tạo playlist mới: Người dụng chọn Tạo playlist mới, hệ thống hiển thị hộp thoại yêu cầu người dùng nhập tên, người dùng thực hiện nhập và nhấn xác nhận, hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \newline
-  \cach 3b. Thêm bài hát vào playlist: Người dùng tìm kiếm bài hát hoặc duyệt danh sách bài hát có sẵn đang hiển thị, người dùng chọn bài hát muốn thêm và chọn playlist muốn thêm, hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \newline
-  \cach 3c. Xóa bài hát khỏi playlist: Người dùng chọn playlist chứa bài hát cần xóa, người dùng chọn bài hát cần xóa trong playlist, hệ thống hiển thị thông báo xác nhận, người dùng xác nhận thì hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \newline
-  \cach 3d. Xóa playlist: Người dùng chọn playlist muốn xóa, hệ thống hiển thị thông báo xác nhận, người dùng xác nhận thì hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \\ \hline
+  \cach 3a. Tạo playlist mới: Người dụng chọn Tạo playlist mới, hệ thống hiển thị yêu cầu người dùng nhập tên, người dùng nhập và nhấn xác nhận, hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \newline
+  \cach 3b. Thêm bài hát vào playlist: Người dùng tìm kiếm và chọn bài hát muốn thêm và chọn playlist muốn thêm, hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \newline
+  \cach 3c. Xóa bài hát khỏi playlist: Người dùng chọn playlist chứa bài hát cần xóa, người dùng chọn bài hát cần xóa trong playlist, hệ thống hiển thị thông báo xác nhận, người dùng xác nhận, hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \newline
+  \cach 3d. Xóa playlist: Người dùng chọn playlist muốn xóa, hệ thống hiển thị thông báo xác nhận, người dùng xác nhận, hệ thống ghi nhận và cập nhật danh sách playlist của người dùng. \\ \hline
 \textbf{Exception Flow} 
 & 3a1. Tên playlist bị trùng: Nếu người dùng nhập tên playlist đã tồn tại, hệ thống thông báo lỗi và yêu cầu người dùng nhập lại. \newline
   3b1. Bài hát đã có trong playlist: Nếu người dùng cố gắng thêm 1 bài hát đã tồn tại trong playlist, hệ thống hiển thị thông báo đã tồn tại và không cập nhật bài hát. \newline
-  1. Lỗi hệ thống: Nếu có lỗi xảy ra trong quá trình cập nhật (mất kết nối máy chủ, hệ thống bận, .v.v), mọi yêu cầu từ người dùng đều bị từ chối và hệ thống sẽ hiển thị thông báo "đang trong quá trình bảo trì", tránh người dùng khó chịu. \\ \hline
+  1. Lỗi hệ thống: Nếu lỗi xảy ra (mất kết nối máy chủ, hệ thống bận, .v.v), mọi yêu cầu từ người dùng đều bị từ chối và hệ thống sẽ hiển thị thông báo "đang trong quá trình bảo trì". \\ \hline
 \textbf{Alternative Flow} 
-& 3a. Tên playlist trống: Người dùng không đặt tên mà trực tiếp xác nhận, hệ thống vẫn sẽ ghi nhận và đặt tên theo format mặc định "Playlist - UUID". Vd: "Playlist - 289809098" với UUID được mặc định timestamp tại thời điểm người dùng xác nhận. \newline
+& 3a. Tên playlist trống: Người dùng không đặt tên mà trực tiếp xác nhận, hệ thống vẫn sẽ ghi nhận và đặt tên theo format mặc định "Playlist - UUID".\newline
   3c/3d. Người dùng không xác nhận thao tác: Hệ thống hoàn tác toàn bộ thao tác của người dùng và cập nhật lại trạng thái ban đầu của danh sách playlist. \\ \hline
 \end{tabularx}
+\caption{Mô tả usecase Quản lý danh sach nhạc}
+\end{table}
 \end{document}
