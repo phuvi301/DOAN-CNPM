@@ -248,6 +248,51 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
 % Non-functional requirements
 \include{non-functional_requirements.tex}
 
+% Đăng nhập & Đăng ký - Người dùng
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3} % tăng khoảng cách dòng trong bảng
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Use case name} & Đăng nhập \& Đăng ký \\ \hline
+\textbf{Actors}        & Người dùng, Nghệ sĩ \\ \hline
+\textbf{Description}   & Người Dùng có thể tạo tài khoản mới (Đăng ký) hoặc truy cập tài khoản đã có (Đăng nhập) để sử dụng ứng dụng. \\ \hline
+\textbf{Trigger}       & Người dùng mở web và chọn tính năng “Đăng nhập / Đăng ký”. \\ \hline
+\textbf{Pre-Condition(s)} 
+& 1. Thiết bị của Người dùng phải được kết nối internet. \newline
+  2. Người Dùng chưa có tài khoản (nếu đăng ký) hoặc đã có tài khoản hợp lệ (nếu đăng nhập). \\ \hline
+\textbf{Post-Condition(s)} 
+& Người Dùng đăng nhập thành công hoặc tạo mới tài khoản thành công và được chuyển vào giao diện chính, tài khoản đăng ký thành công sẽ được thêm vào hệ thống. \\ \hline
+\textbf{Normal Flow}   
+& \textbf{Đăng nhập:} \newline
+  1. Người Dùng chọn “Đăng nhập”. \newline
+  2. Nhập email/số điện thoại/tên đăng nhập và mật khẩu. \newline
+  3. Hệ thống kiểm tra thông tin xác thực. \newline
+  4. Nếu đúng $\rightarrow$ Đăng nhập thành công và hiển thị trang chủ. \newline
+  \textbf{Đăng ký:} \newline
+  1. Người Dùng chọn “Đăng ký”. \newline
+  2. Nhập thông tin cá nhân: email/số điện thoại, mật khẩu, tên hiển thị. \newline
+  3. Xác thực tài khoản qua email. \newline
+  4. Hệ thống tạo tài khoản mới và hiển thị thông báo thành công. \\ \hline
+\textbf{Exception Flow} 
+& \textbf{Đăng nhập:} \newline
+  2a. Bỏ trống trường thông tin $\rightarrow$ báo lỗi “Vui lòng nhập đầy đủ thông tin”. \newline
+  3a. Sai mật khẩu $\rightarrow$ báo lỗi “Sai mật khẩu”. \newline
+  3b. Tài khoản bị khóa $\rightarrow$ báo lỗi “Tài khoản của bạn đã bị khóa”.
+  \textbf{Đăng ký:} \newline
+  2a. Email/số điện thoại đã tồn tại $\rightarrow$ báo lỗi “Tài khoản đã tồn tại”. \newline
+  2b. Mật khẩu yếu/không hợp lệ $\rightarrow$ báo lỗi “Mật khẩu không hợp lệ”. \newline
+  3a. Không xác thực được email $\rightarrow$ báo lỗi “Xác thực thất bại”. \\ \hline
+\textbf{Alternative Flow} 
+& \textbf{Đăng nhập:} \newline
+  2b. Người Dùng chọn “Đăng nhập bằng Google/Facebook/Apple ID”. \newline
+  2c. Người Dùng chọn “Quên mật khẩu” $\rightarrow$ chuyển sang luồng khôi phục mật khẩu. \newline
+  \textbf{Đăng ký:} \newline
+  2c. Người Dùng có thể tải ảnh đại diện hoặc chọn sở thích âm nhạc ngay khi tạo tài khoản. \\ \hline
+\end{tabularx}
+\caption{Mô tả usecase Đăng nhập \& Đăng ký}
+\end{table}
+
 % Quản lý tài khoản - Người dùng
 \begin{table}[h!]
 \centering
