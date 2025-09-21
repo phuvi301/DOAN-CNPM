@@ -10,8 +10,4 @@
 *.pdf
 *.run.xml
 *.synctex.gz
-<<<<<<< HEAD
 *.toc
-=======
-*.toc
->>>>>>> origin/main
