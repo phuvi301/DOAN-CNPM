@@ -873,4 +873,43 @@ Mục tiêu là mang đến trải nghiệm nghe nhạc sinh động, giúp Ngư
 \end{tabularx}
 \caption{Mô tả usecase Nhận diện bài hát}
 \end{table}
+\section{Thiết kế hành vi và giao diện người dùng}
+\subsection{Đăng nhập - Login}
+\begin{itemize}
+  \item \textbf{Sequence Diagram:} 
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{Images/login_diagram-Page-1.drawio.png}
+    \caption{Sequence Diagram - Login}
+  \end{figure}
+  \item \textbf{Mục đích:} Thể hiện quy trình đăng nhập của người dùng, bao gồm các bước từ khi người dùng nhập thông tin đến khi hệ thống xác thực và phản hồi kết quả. 
+  \item \textbf{Thành phần liên quan:} 
+  \begin{itemize}
+      \item Người dùng (User): người thực hiện thao tác đăng nhập.
+      \item Giao diện đăng nhập (Login UI): giao diện để người dùng nhập thông tin và hiển thị kết quả.
+      \item Hệ thống xác thực (Auth Controller): nhận thông tin đăng nhập và xử lý xác thực.
+      \item Cơ sở dữ liệu người dùng (Firestore): lưu trữ thông tin tài khoản.
+  \end{itemize}
+  \item \textbf{Luồng tương tác:}
+  \begin{enumerate}
+    \item Người dùng mở trang đăng nhập.
+    \item Người dùng nhập email + mật khẩu và nhấn nút “Đăng nhập”.
+    \item Giao diện đăng nhập gửi yêu cầu đăng nhập đến Hệ thống xác thực.
+    \item Hệ thống xác thực kiểm tra dữ liệu đầu vào (có trống không, định dạng hợp lệ không).
+    \item Nếu hợp lệ, Hệ thống xác thực truy vấn Cơ sở dữ liệu người dùng để tìm tài khoản.
+    \item Cơ sở dữ liệu trả về thông tin tài khoản (nếu tồn tại).
+    \item Hệ thống xác thực phản hồi lại cho Giao diện đăng nhập:
+    \begin{itemize}
+      \item Nếu đúng: thông báo đăng nhập thành công và chuyển đến giao diện trang chủ.
+      \item Nếu sai: thông báo lỗi (sai mật khẩu, tài khoản không tồn tại).
+    \end{itemize}
+  \end{enumerate}
+  \item \textbf{Activity Diagram:}
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.6\textwidth]{Images/login_diagram-Trang-2.drawio.png}
+      \caption{Activity Diagram - Login}
+    \end{figure}
+  \item \textbf{UI:}
+\end{itemize}
 \end{document}
