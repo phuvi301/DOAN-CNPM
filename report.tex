@@ -156,7 +156,7 @@ KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\
 \\
 \multicolumn{1}{l}{\textbf{{\Large Báo cáo }}}\\
 \\
-\textbf{\textit{{\Huge Ứng dụng nghe nhạc BKSound}}}\\
+\textbf{\textit{{\Huge Ứng dụng nghe nhạc trực tuyến MusicHUB}}}\\
 \\
 \hline
 \end{tabular}
@@ -495,7 +495,125 @@ Mục tiêu là mang đến trải nghiệm nghe nhạc sinh động, giúp Ngư
 \end{itemize}
 
 \subsection{Non-functional Requirements}
+% Hiệu năng (Performance)
+\subsubsection{Hiệu năng (Performance)}
+  Hệ thống phải có khả năng phản hồi nhanh chóng trong mọi tình huống sử dụng phổ biến.
+  \begin{itemize}
+      \item Thời gian phản hồi cho các thao tác chính (như đăng nhập, tìm kiếm bài hát, phát nhạc, chuyển bài, tạo playlist,...) \textbf{không được vượt quá 2 giây} (đối với tối thiểu 95\% yêu cầu), ngay cả khi có \textbf{1000 người dùng đồng thời} truy cập.
+      \item Thời gian bắt đầu phát nhạc (từ khi ấn nút Play đến khi nghe) \textbf{$\leq \mathbf{800}$ ms} trong điều kiện mạng ổn định.
+      \item Tác vụ nhận diện bài hát từ đoạn ghi âm 6-10s phải trả kết quả trong vòng \textbf{$\leq \mathbf{2}$ giây} để đảm bảo trải nghiệm mượt mà.
+  \end{itemize}
+
+% Bảo mật (Security)
+\subsubsection{Bảo mật (Security)}
+  Hệ thống cần đảm bảo mức độ bảo mật cao.
+  \begin{itemize}
+      \item Người dùng phải đăng nhập qua tài khoản riêng (email/social login OAuth 2.0) để đảm bảo xác thực an toàn.
+      \item Dữ liệu cá nhân (tên, email, playlist, lịch sử nghe) và dữ liệu nhạc phải được mã hóa khi lưu trữ (AES-256) và truyền tải (TLS 1.2+).
+      \item Hệ thống áp dụng \textbf{role-based access control} (phân quyền): người dùng thường không thể truy cập chức năng quản trị.
+      \item Phiên đăng nhập tự động hết hạn sau \textbf{30 phút không hoạt động}.
+      \item Hệ thống có cơ chế giới hạn tốc độ (rate limit) để ngăn chặn brute force và tấn công DDoS:
+      \begin{itemize}
+          \item Tối đa 5 lần đăng nhập thất bại trong vòng 15 phút sẽ khóa tài khoản trong 30 phút.
+          \item Giới hạn tối đa 100 yêu cầu API mỗi phút cho mỗi địa chỉ IP.
+          \item Mỗi tài khoản người dùng chỉ được phép phát tối đa 3 luồng nhạc đồng thời.
+          \item Giới hạn tối đa 10 yêu cầu nhận diện bài hát mỗi phút cho mỗi tài khoản người dùng.
+      \end{itemize}
+  \end{itemize}
+
+% Độ tin cậy (Reliability)
+\subsubsection{Độ tin cậy (Reliability)}
+  Hệ thống phải có khả năng hoạt động liên tục, ổn định và không bị gián đoạn.
+  \begin{itemize}
+      \item Hệ thống cần đảm bảo \textbf{độ sẵn sàng (uptime)} tối thiểu là \textbf{99.9\%} cho dịch vụ phát nhạc, và tối thiểu \textbf{99.5\%} cho dịch vụ nhận diện bài hát.
+      \item Cơ chế sao lưu dữ liệu được thực hiện tự động hàng ngày để tránh mất mát thông tin trong trường hợp xảy ra sự cố hệ thống.
+      \item Có thông báo lỗi rõ ràng nếu hệ thống không khả dụng, kèm theo phương án xử lý.
+      \item Khi gặp sự cố, phải có cơ chế \textbf{khôi phục dữ liệu trong vòng 24 giờ}.
+  \end{itemize}
+
+% Khả năng sử dụng (Usability)
+\subsubsection{Khả năng sử dụng (Usability)}
+  \begin{itemize}
+      \item Giao diện người dùng (UI) trực quan, thân thiện, quen thuộc với các biểu tượng phổ biến (Play/Pause, Next, Like, Playlist,...).
+      \item Hỗ trợ \textbf{song ngữ (tiếng Việt và tiếng Anh)} để phù hợp với nhiều đối tượng người dùng.
+      \item Người dùng mới có thể làm quen và thành thạo với các chức năng cơ bản (tìm kiếm, phát nhạc, playlist, nhận diện bài hát,...) sau \textbf{$\leq \mathbf{15}$ phút} hướng dẫn.
+      \item Hỗ trợ \textbf{đa nền tảng}: trình duyệt web phổ biến (Chrome, Firefox, Edge, Safari – 2 phiên bản gần nhất) và ứng dụng di động (Android 10+, iOS 14+).
+      \item Hỗ trợ \textbf{accessibility} (screen reader, contrast mode, điều khiển bàn phím,...) để đảm bảo các đối tượng khuyết tật có thể sử dụng.
+  \end{itemize}
+
+% Khả năng mở rộng (Scalability)
+\subsubsection{Khả năng mở rộng (Scalability)}
+  \begin{itemize}
+      \item Hệ thống có khả năng phục vụ \textbf{thêm ít nhất 3000 người dùng/năm} mà không ảnh hưởng hiệu năng.
+      \item Có thể mở rộng, tích hợp thêm các module mới như: gợi ý nhạc bằng AI, podcast,... mà không làm thay đổi cấu trúc hiện tại.
+      \item Các microservice (nghe nhạc, tìm kiếm, nhận diện, gợi ý) có thể scale độc lập trên cloud.
+  \end{itemize}
+
+% Tính sẵn sàng (Availability)
+\subsubsection{Tính sẵn sàng (Availability)}
+  \begin{itemize}
+      \item Hệ thống cần hoạt động liên tục và vận hành ổn định \textbf{24/7} để hỗ trợ người dùng mọi lúc.
+      \item Thời gian bảo trì định kỳ \textbf{không quá 4 lần/năm}, mỗi lần $\leq 4$ giờ.
+      \item Nếu bảo trì, cần có thông báo trên hệ thống trước ít nhất \textbf{24 giờ}.
+      \item Trong thời gian bảo trì, hệ thống phải hiển thị thông báo rõ ràng cho người dùng.
+  \end{itemize}
+
+% Tính tương thích (Compatibility)
+\subsubsection{Tính tương thích (Compatibility)}
+  \begin{itemize}
+      \item Ứng dụng tương thích với nhiều thiết bị (điện thoại, máy tính, máy tính bảng) và nhiều chuẩn phát nhạc (HLS/DASH, AAC/Opus).
+      \item Hệ thống hoạt động tốt trên nhiều nền tảng thiết bị khác nhau:
+      \begin{itemize}
+          \item Mobile app tương thích với hệ điều hành \textbf{Android 10 trở lên} và \textbf{iOS 14 trở lên}.
+          \item Web app tương thích với các trình duyệt hiện đại như \textbf{Google Chrome}, \textbf{Mozilla Firefox}, \textbf{Microsoft Edge}, \textbf{Apple Safari} (đối với 2 phiên bản gần nhất).
+      \end{itemize}
+      \item Hệ thống tích hợp API với dịch vụ bên ngoài: social login (Google, Facebook), thanh toán (nếu có Premium), API âm nhạc (metadata, lyric).
+  \end{itemize}
+
+% Tuân thủ pháp lý (Compliance)
+\subsubsection{Tuân thủ pháp lý (Compliance)}
+  Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, bảo mật dữ liệu và quyền riêng tư.
+  \begin{itemize}
+      \item Hệ thống phải tuân thủ \textbf{Luật An ninh mạng Việt Nam} liên quan đến thu thập, xử lý, lưu trữ và bảo vệ thông tin cá nhân trong lãnh thổ Việt Nam.
+      \item Nếu mở rộng quốc tế, phải đáp ứng chuẩn \textbf{GDPR (General Data Protection Regulation)} về bảo mật dữ liệu và quyền riêng tư.
+      \item Đảm bảo bản quyền âm nhạc: chỉ lưu trữ, phát nhạc khi có giấy phép; có cơ chế gỡ bỏ nội dung vi phạm bản quyền theo yêu cầu trong vòng \textbf{48 giờ}.
+  \end{itemize}
+
+% Khả năng kiểm toán (Audit)
+\subsubsection{Khả năng kiểm toán (Audit)}
+  \begin{itemize}
+      \item Hệ thống phải ghi lại toàn bộ hoạt động (logs) của người dùng và quản trị viên.
+      \item Dữ liệu log cần được sao lưu định kỳ (ví dụ: ngày 28 hàng tháng).
+      \item Log chỉ được đọc (read-only), không thể chỉnh sửa hay xóa qua giao diện người dùng.
+  \end{itemize}
+
+% Hiệu quả sử dụng tài nguyên (Efficiency)
+\subsubsection{Hiệu quả sử dụng tài nguyên (Efficiency)}
+  \begin{itemize}
+      \item Hệ thống phải phục vụ ổn định với lưu lượng tối đa khoảng \textbf{5000 người dùng hoạt động đồng thời}.
+      \item Tối ưu hóa tài nguyên hệ thống (RAM, CPU) để tránh lãng phí; sử dụng \textbf{adaptive bitrate (ABR)} để giảm băng thông khi mạng yếu.
+      \item Ứng dụng mobile tối ưu pin: giảm bitrate khi màn hình tắt (audio-only mode).
+  \end{itemize}
+
+% Khả năng bảo trì (Maintainability)
+\subsubsection{Khả năng bảo trì (Maintainability)}
+  \begin{itemize}
+      \item Có \textbf{tài liệu kỹ thuật} đầy đủ, rõ ràng (hướng dẫn cài đặt, vận hành, xử lý sự cố).
+      \item Các lỗi phát sinh được ghi log và gửi thông báo cho kỹ thuật viên \textbf{trong vòng 5 phút} (qua email/sms).
+      \item Hệ thống cần được kiểm tra và bảo trì định kỳ \textbf{tối đa 3 tháng/lần}.
+      \item Kiến trúc phần mềm module hóa, hỗ trợ CI/CD, dễ dàng thêm mới tính năng như gợi ý nhạc AI, podcast,...
+  \end{itemize}
+
 \section{Use-case Diagram và Use-case Scenario}
+\subsection{Use-case Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Images/usecase_diagram.jpg}
+    \caption{Use-case Diagram}
+    \label{fig:usecase_diagram}
+\end{figure}
+\subsection{Use-case Scenario}
+% Upload bài hát/album - Nghệ sĩ
 \begin{table}[h!]
 \centering
 \renewcommand{\arraystretch}{1.3} % tăng khoảng cách dòng trong bảng
