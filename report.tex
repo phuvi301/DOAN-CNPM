@@ -873,13 +873,15 @@ Mục tiêu là mang đến trải nghiệm nghe nhạc sinh động, giúp Ngư
 \end{tabularx}
 \caption{Mô tả usecase Nhận diện bài hát}
 \end{table}
+
 \section{Thiết kế hành vi và giao diện người dùng}
-\subsection{Đăng nhập - Login}
+\subsection{Đăng nhập - đăng kí}
+\subsubsection{Đăng nhập - Login}
 \begin{itemize}
   \item \textbf{Sequence Diagram:} 
   \begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{Images/login_diagram-Page-1.drawio.png}
+    \includegraphics[width=0.9\textwidth]{Images/login_sequence.png}
     \caption{Sequence Diagram - Login}
   \end{figure}
   \item \textbf{Mục đích:} Thể hiện quy trình đăng nhập của người dùng, bao gồm các bước từ khi người dùng nhập thông tin đến khi hệ thống xác thực và phản hồi kết quả. 
@@ -907,9 +909,49 @@ Mục tiêu là mang đến trải nghiệm nghe nhạc sinh động, giúp Ngư
   \item \textbf{Activity Diagram:}
     \begin{figure}
       \centering
-      \includegraphics[width=0.6\textwidth]{Images/login_diagram-Trang-2.drawio.png}
+      \includegraphics[width=0.6\textwidth]{Images/login_activity.png}
       \caption{Activity Diagram - Login}
     \end{figure}
   \item \textbf{UI:}
+  \end{itemize}
+  \subsubsection{Đăng ký - Register}
+\begin{itemize}
+  \item \textbf{Sequence Diagram:} 
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{Images/register_sequence.png}
+    \caption{Sequence Diagram - Register}
+  \end{figure}
+  \item \textbf{Mục đích:} Thể hiện quy trình đăng ký tài khoản mới của người dùng, bao gồm các bước từ khi người dùng nhập thông tin đến khi hệ thống tạo tài khoản và phản hồi kết quả.
+  \item \textbf{Thành phần liên quan:} 
+  \begin{itemize}
+      \item Người dùng (User): người thực hiện thao tác đăng ký.
+      \item Giao diện đăng ký (Register UI): giao diện để người dùng nhập thông tin và hiển thị kết quả.
+      \item Hệ thống xác thực (Auth Controller): nhận thông tin đăng ký và xử lý xác thực.
+      \item Cơ sở dữ liệu người dùng (Firestore): lưu trữ thông tin tài khoản.
+  \end{itemize}
+\item \textbf{Luồng tương tác:}
+\begin{enumerate}
+  \item Người dùng mở trang đăng ký.
+  \item Người dùng nhập email, mật khẩu và xác nhận mật khẩu, sau đó nhấn nút “Đăng ký”.
+  \item Giao diện đăng ký gửi yêu cầu tạo tài khoản đến Hệ thống xác thực.
+  \item Hệ thống xác thực kiểm tra dữ liệu đầu vào (có trống không, mật khẩu có khớp không, định dạng email hợp lệ không).
+  \item Nếu hợp lệ, Hệ thống xác thực truy vấn Cơ sở dữ liệu người dùng để kiểm tra xem tài khoản đã tồn tại hay chưa.
+  \item Cơ sở dữ liệu phản hồi kết quả kiểm tra.
+  \item Hệ thống xác thực phản hồi lại cho Giao diện đăng ký:
+  \begin{itemize}
+    \item Nếu tài khoản chưa tồn tại: tạo tài khoản mới, thông báo đăng ký thành công và điều hướng người dùng đến giao diện đăng nhập.
+    \item Nếu tài khoản đã tồn tại hoặc dữ liệu không hợp lệ: thông báo lỗi (email đã tồn tại, mật khẩu không khớp, định dạng sai, v.v.).
+  \end{itemize}
+\end{enumerate}
+
+  \item \textbf{Activity Diagram:}
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.6\textwidth]{Images/register_activity.png}
+      \caption{Activity Diagram - Register}
+    \end{figure}
+  \item \textbf{UI:}
 \end{itemize}
+
 \end{document}
