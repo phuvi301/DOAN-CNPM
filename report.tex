@@ -915,7 +915,7 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		3a. Nếu người dùng nhập tên playlist đã tồn tại, hệ thống thông báo lỗi và yêu cầu người dùng nhập lại. \newline
 		3b. Nếu người dùng thêm 1 bài hát đã tồn tại trong playlist, hệ thống hiển thị thông báo đã tồn tại và không cập nhật bài hát.                                                                              \\ \hline
 		\textbf{Alternative Flow}
-		                       & 3a. Người dùng không đặt tên mà trực tiếp xác nhận, hệ thống vẫn sẽ ghi nhận và đặt tên theo format mặc định ``Unname Playlist''.\newline
+		                       & 3a. Người dùng không đặt tên mà trực tiếp xác nhận, hệ thống vẫn sẽ ghi nhận và đặt tên theo format mặc định ``Unnamed Playlist''.\newline
 		3c/3d. Nếu người dùng không xác nhận, hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của danh sách playlist.                                                                         \\ \hline
 	\end{tabularx}
 	\caption{Mô tả use-case Quản lý danh sách nhạc}
@@ -1106,6 +1106,88 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		      \centering
 		      \includegraphics[width=0.6\textwidth]{Images/account-management_activity.png}
 		      \caption{Activity Diagram - Account Management}
+	      \end{figure}
+	\item \textbf{UI:}
+
+
+\end{itemize}
+
+\subsubsection{Quản lý danh sách nhạc - Playlist Management}
+\begin{itemize}
+	\item \textbf{Sequence Diagram:}
+	      \begin{figure}[H]
+		      \centering
+		      \includegraphics[width=0.9\textwidth]{Images/playlist/playlist-1_sd.png}
+		      \caption{Sequence Diagram - Playlist Management (Access "My Playlist")}
+	      \end{figure}
+        \begin{figure}[H]
+		      \centering
+		      \includegraphics[width=0.8\textwidth]{Images/playlist/playlist-3ab_sd.png}
+		      \caption{Sequence Diagram - Playlist Management (Create Playlist \& Add Song To Playlist)}
+	      \end{figure}
+        \begin{figure}[H]
+		      \centering
+		      \includegraphics[width=0.8\textwidth]{Images/playlist/playlist-3cd_sd.png}
+		      \caption{Sequence Diagram - Playlist Management (Remove Song From Playlist \& Delete Playlist)}
+	      \end{figure}
+	\item \textbf{Mục đích:} Thể hiện quy trình người dùng xem và thực hiện các thao tác điều khiển, quản lý danh sách nhạc (playlist) cá nhân của người dùng: truy cập "Danh sách nhạc của tôi", tạo playlist mới, thêm bài hát vào playlist, xoá bài hát khỏi playlist và xóa playlist.
+	\item \textbf{Thành phần liên quan:}
+	      \begin{itemize}
+		      \item Người dùng (User): người thực hiện các thao tác quản lý playlist.
+		      \item Giao diện quản lý (Management UI): giao diện để người dùng thao tác, nhập thông tin và hiển thị thông báo/kết quả.
+		      \item Hệ thống xử lý (Playlist Controller): nhận thông tin và xử lý xác thực dữ liệu.
+		      \item Cơ sở dữ liệu người dùng (Firestore): lưu trữ thông tin playlist của tài khoản người dùng.
+	      \end{itemize}
+	\item \textbf{Luồng tương tác:}
+	      \begin{enumerate}
+		      \item Người dùng truy cập "Danh sách nhạc của tôi".
+          \item Nếu có lỗi xảy ra (mất kết nối máy chủ, hệ thống bận,...), hệ thống từ chối mọi yêu cầu từ người dùng và giao diện hiển thị thông báo "Đang trong quá trình bảo trì".
+		      \item Nếu hệ thống hoạt động bình thường, hệ thống xử lý gửi yêu cầu đến cơ sở dữ liệu, cơ sở dữ liệu phản hồi kết quả là danh sách nhạc của người dùng hiện tại và hiển thị lên giao diện.
+		      \item Người dụng thực hiện thao tác điều khiển:
+		            \begin{itemize}
+			            \item Nếu người dùng muốn tạo playlist mới:
+			                  \begin{itemize}
+				                  \item Người dùng chọn "Tạo playlist mới" trên giao diện, nhập tên playlist (có thể để trống) và nhấn xác nhận.
+				                  \item Hệ thống tiếp nhận yêu cầu và kiểm tra tên playlist.
+				                  \item Nếu tên đã tồn tại, hệ thống thông báo lỗi và yêu cầu người dùng nhập lại.
+				                  \item Nếu người dùng không nhập tên cho playlist mà trực tiếp xác nhận, hệ thống sẽ tự động đặt tên theo định dạng mặc định "Unnamed Playlist" và lưu vào cơ sở dữ liệu.
+				                  \item Nếu tên hợp lệ, hệ thống gửi yêu cầu tạo playlist mới đến cơ sở dữ liệu, cơ sở dữ liệu lưu trữ playlist mới và phản hồi kết quả.
+				                  \item Giao diện hiển thị thông báo tạo playlist mới thành công và cập nhật theo dữ liệu mới.
+			                  \end{itemize}
+			            \item Nếu người dùng muốn thêm bài hát vào playlist:
+			                  \begin{itemize}
+				                  \item Người dùng chọn "Thêm vào playlist" với bài hát muốn thêm.
+				                  \item Hệ thống tiếp nhận yêu cầu và truy vấn đến cơ sở dữ liệu để hiển thị danh sách playlist hiện có để người dùng chọn.
+				                  \item Người dùng chọn playlist muốn thêm bài hát vào và nhấn xác nhận.
+				                  \item Hệ thống tiếp nhận yêu cầu và kiểm tra bài hát đã tồn tại trong playlist hay chưa.
+                          \item Nếu bài hát đã tồn tại trong playlist, hệ thống hiển thị thông báo đã tồn tại và không cập nhật bài hát.
+                          \item Nếu bài hát chưa tồn tại trong playlist, hệ thống gửi yêu cầu thêm bài hát vào playlist đến cơ sở dữ liệu.
+				                  \item Cơ sở dữ liệu thêm bài hát vào playlist và phản hồi kết quả.
+				                  \item Giao diện hiển thị thông báo thêm thành công và cập nhật theo dữ liệu mới.
+			                  \end{itemize}
+			            \item Nếu người dùng muốn xoá bài hát khỏi playlist:
+			                  \begin{itemize}
+				                  \item Người dùng chọn "Xoá khỏi playlist" với bài hát muốn xoá.
+                          \item Hệ thống hiển thị thông báo xác nhận xoá bài hát.
+                          \item Nếu người dùng xác nhận xoá bài hát, hệ thống tiếp nhận và gửi yêu cầu đến cơ sở dữ liệu, cơ sở dữ liệu sẽ xoá bài hát khỏi playlist và phản hồi kết quả, giao diện hiển thị thông báo xoá thành công và cập nhật theo dữ liệu mới.
+                          \item Nếu người dùng không xác nhận xoá bài hát mà chọn "Huỷ", hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của danh sách playlist, dữ liệu không thay đổi.
+			                  \end{itemize}
+                  \item Nếu người dùng muốn xoá playlist:
+                        \begin{itemize}
+                          \item Người dùng chọn "Xoá playlist" tại playlist muốn xoá.
+                          \item Hệ thống hiển thị thông báo xác nhận xoá playlist.
+                          \item Nếu người dùng xác nhận xoá playlist, hệ thống tiếp nhận và gửi yêu cầu đến cơ sở dữ liệu, cơ sở dữ liệu sẽ xoá playlist và phản hồi kết quả, giao diện hiển thị thông báo xoá thành công và cập nhật theo dữ liệu mới.
+                          \item Nếu người dùng không xác nhận xoá playlist mà chọn "Huỷ", hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của danh sách playlist, dữ liệu không thay đổi.
+                        \end{itemize}
+		            \end{itemize}
+            \item Hệ thống ghi nhận, cập nhật danh sách playlist của người dùng và làm mới UI.
+	      \end{enumerate}
+
+	\item \textbf{Activity Diagram:}
+	      \begin{figure}[H]
+		      \centering
+          \includegraphics[width=1.0\textwidth, height=0.7\textheight]{Images/playlist/playlist-activity.png}
+		      \caption{Activity Diagram - Playlist Management}
 	      \end{figure}
 	\item \textbf{UI:}
 
