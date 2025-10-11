@@ -1108,7 +1108,7 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 	\item \textbf{Activity Diagram:}
 	      \begin{figure}[H]
 		      \centering
-		      \includegraphics[width=0.6\textwidth]{Images/account-management_activity.png}
+		      \includegraphics[width=0.65\textwidth]{Images/account-management_activity.png}
 		      \caption{Activity Diagram - Account Management}
 	      \end{figure}
 	\item \textbf{UI:}
@@ -1190,7 +1190,7 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 	\item \textbf{Activity Diagram:}
 	      \begin{figure}[H]
 			\centering
-          	\includegraphics[width=1.0\textwidth, height=0.7\textheight]{Images/playlist/playlist-activity.png}
+          	\includegraphics[width=1.0\textwidth]{Images/playlist/playlist-activity.png}
 			\caption{Activity Diagram - Playlist Management}
 	      \end{figure}
 	\item \textbf{UI:}
@@ -1237,4 +1237,46 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 	\item \textbf{UI:}
 \end{itemize}
 
+%Upoad bài hát
+\subsection{Upload bài hát - Song Upload}
+\begin{itemize}
+	\item \textbf{Sequence Diagram:}
+	      \begin{figure}[H]
+				\centering
+				\includegraphics[width=1\textwidth]{Images/upload_sequence.png}
+				\caption{Sequence Diagram - Upload Song}
+	      \end{figure}
+	\item \textbf{Mục đích:} Thể hiện quy trình người dùng truy cập tính năng Upload bài hát, bao gồm việc chọn bài hát, nhập thông tin và nhận phản hồi từ hệ thống.
+	\item \textbf{Thành phần liên quan:}
+	      \begin{itemize}
+		      \item Người dùng (User): thực hiện thao tác mở tab upload, chọn file và nhập thông tin bài hát.
+		      \item Giao diện người dùng (UI): giao diện để người dùng chọn file, nhập thông tin và hiển thị kết quả.
+		      \item Upload Controller: xử lý yêu cầu tải lên, kiểm tra dữ liệu đầu vào và gọi yêu cầu lưu dữ liệu.
+		      \item Storage: lưu trữ file bài hát.
+			  \item Database: lưu trữ dữ liệu bài hát (metadata: tên, ca sĩ, đường dẫn file,...).
+	      \end{itemize}
+	\item \textbf{Luồng tương tác:}
+	      \begin{enumerate}
+			\item Người dùng mở tab \textbf{Upload}.
+			\item Người dùng chọn file bài hát từ thiết bị và nhập thông tin (tên bài hát, nghệ sĩ, album, thể loại).
+			\item UI gửi yêu cầu tải lên đến Upload Controller.
+			\item Upload Controller kiểm tra dữ liệu, gọi Storage để lưu file.
+			\item Storage lưu file và trả về đường dẫn.
+			\item Upload Controller lưu thông tin bài hát vào Database.
+			\item Database trả về kết quả (thành công/ thất bại).
+			\item Upload Controller phản hồi lại UI.
+			\begin{itemize}
+				\item Nếu thành công $\rightarrow$ thông báo "Tải lên thành công".
+				\item Nếu thất bại $\rightarrow$ trả về thông báo lỗi (file không hợp lệ, lỗi kết nối,...).
+			\end{itemize}
+			\item UI hiển thị thông báo cho người dùng..
+		  \end{enumerate}
+	\item \textbf{Activity Diagram:}
+		\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\textwidth]{Images/upload_activity.png}
+				\caption{Activity Diagram - Upload Song}
+	      \end{figure}
+	\item \textbf{UI:}
+\end{itemize}
 \end{document}
