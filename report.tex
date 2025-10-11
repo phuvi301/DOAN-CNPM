@@ -659,21 +659,21 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		\hline
 		\textbf{Use case name} & Đăng nhập \& Đăng ký                                                                                                                                          \\ \hline
 		\textbf{Actors}        & Người dùng, Nghệ sĩ                                                                                                                                           \\ \hline
-		\textbf{Description}   & Người Dùng có thể tạo tài khoản mới (Đăng ký) hoặc truy cập tài khoản đã có (Đăng nhập) để sử dụng ứng dụng.                                                  \\ \hline
+		\textbf{Description}   & Người dùng có thể tạo tài khoản mới (Đăng ký) hoặc truy cập tài khoản đã có (Đăng nhập) để sử dụng ứng dụng.                                                  \\ \hline
 		\textbf{Trigger}       & Người dùng mở web và chọn tính năng “Đăng nhập / Đăng ký”.                                                                                                    \\ \hline
-		\textbf{Pre-Condition(s)}
-		                       & 1. Thiết bị của Người dùng phải được kết nối internet. \newline
-		2. Người Dùng chưa có tài khoản (nếu đăng ký) hoặc đã có tài khoản hợp lệ (nếu đăng nhập).                                                                                             \\ \hline
+		\textbf{Pre-Condition(s)}&
+		1. Thiết bị của Người dùng phải được kết nối internet. \newline
+		2. Người dùng chưa có tài khoản (nếu đăng ký) hoặc đã có tài khoản hợp lệ (nếu đăng nhập).                                                                                             \\ \hline
 		\textbf{Post-Condition(s)}
-		                       & Người Dùng đăng nhập thành công hoặc tạo mới tài khoản thành công và được chuyển vào giao diện chính, tài khoản đăng ký thành công sẽ được thêm vào hệ thống. \\ \hline
+		                       & Người dùng đăng nhập thành công hoặc tạo mới tài khoản thành công và được chuyển vào giao diện chính, tài khoản đăng ký thành công sẽ được thêm vào hệ thống. \\ \hline
 		\textbf{Normal Flow}
 		                       & \textbf{Đăng nhập:} \newline
-		1. Người Dùng chọn “Đăng nhập”. \newline
+		1. Người dùng chọn “Đăng nhập”. \newline
 		2. Nhập email/số điện thoại/tên đăng nhập và mật khẩu. \newline
 		3. Hệ thống kiểm tra thông tin xác thực. \newline
 		4. Nếu đúng $\rightarrow$ Đăng nhập thành công và hiển thị trang chủ. \newline
 		\textbf{Đăng ký:} \newline
-		1. Người Dùng chọn “Đăng ký”. \newline
+		1. Người dùng chọn “Đăng ký”. \newline
 		2. Nhập thông tin cá nhân: email/số điện thoại, mật khẩu, tên hiển thị. \newline
 		3. Xác thực tài khoản qua email. \newline
 		4. Hệ thống tạo tài khoản mới và hiển thị thông báo thành công.                                                                                                                        \\ \hline
@@ -705,7 +705,7 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		\hline
 		\textbf{Use case name} & Quản lý tài khoản                                                                                                                                       \\ \hline
 		\textbf{Actors}        & Người dùng, Nghệ sĩ                                                                                                                                     \\ \hline
-		\textbf{Description}   & Người Dùng có thể quản lý tài khoản cá nhân bao gồm: đăng ký, đổi mật khẩu, cập nhật thông tin cá nhân (avatar, tên hiển thị, email), và xóa tài khoản. \\ \hline
+		\textbf{Description}   & Người dùng có thể quản lý tài khoản cá nhân bao gồm: đăng ký, đổi mật khẩu, cập nhật thông tin cá nhân (avatar, tên hiển thị, email), và xóa tài khoản. \\ \hline
 		\textbf{Trigger}       & Người dùng chọn chức năng “Quản lý tài khoản” trên giao diện hệ thống sau khi đăng nhập thành công.                                                     \\ \hline
 		\textbf{Pre-Condition(s)}
 		                       & 1. Thiết bị của Người dùng phải được kết nối internet. \newline
@@ -783,7 +783,8 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		\textbf{Pre-Condition(s)}
 		                       & 1. Thiết bị của Người dùng phải được kết nối internet. \newline
 		2. Ứng dụng được cấp quyền truy cập âm thanh. \newline
-		3. Bài hát đã có sẵn trên hệ thống và có thể phát.                                                                                                                                                                                                                                                   \\ \hline
+		3. Người dùng đã đăng nhập thành công. \newline
+		4. Bài hát đã có sẵn trên hệ thống và có thể phát.                                                                                                                                                                                                                                                   \\ \hline
 		\textbf{Post-Condition(s)}
 		                       & Hệ thống phát nhạc theo thao tác của Người dùng, cập nhật trạng thái trình phát (player state) và lưu lại lịch sử nghe nhạc.                                                                                                                                                \\ \hline
 		\textbf{Normal Flow}
@@ -824,7 +825,8 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		\textbf{Trigger}       & Người dùng mở thanh tìm kiếm hoặc tab “Khám phá” trong ứng dụng.                                                                                     \\ \hline
 		\textbf{Pre-Condition(s)}
 		                       & 1. Thiết bị của Người dùng phải được kết nối internet. \newline
-		2. Dữ liệu về bài hát, nghệ sĩ, album phải có trong cơ sở dữ liệu.                                                                                                            \\ \hline
+		2. Người dùng đã đăng nhập thành công. \newline 
+		3. Dữ liệu về bài hát, nghệ sĩ, album phải có trong cơ sở dữ liệu.                                                                                                            \\ \hline
 		\textbf{Post-Condition(s)}
 		                       & Hệ thống trả về kết quả tìm kiếm hoặc danh sách nhạc khám phá phù hợp, cho phép Người dùng chọn và nghe nhạc ngay.                                   \\ \hline
 		\textbf{Normal Flow}
@@ -838,8 +840,7 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		\textbf{Exception Flow}
 		                       & 2a1. Nếu không tìm thấy kết quả $\rightarrow$ hiển thị thông báo “Không tìm thấy nội dung phù hợp”. \newline
 		2a2. Nếu không nhập gì $\rightarrow$ hiển thị “Vui lòng nhập từ khóa”. \newline
-		2a3. Nếu kết nối internet bị gián đoạn trong khi tìm kiếm $\rightarrow$ hiển thị thông báo “Mất kết nối, vui lòng kiểm tra lại”. \newline
-		2c1. Nếu Người dùng mới/ẩn danh (không đăng nhập) chưa có lịch sử nghe $\rightarrow$ gợi ý nhạc phổ biến mặc định.                                                            \\ \hline
+		2a3. Nếu kết nối internet bị gián đoạn trong khi tìm kiếm $\rightarrow$ hiển thị thông báo “Mất kết nối, vui lòng kiểm tra lại”.											  \\ \hline
 		\textbf{Alternative Flow}
 		                       & 2a2. Người dùng có thể dùng bộ lọc nâng cao (theo thể loại, năm phát hành, nghệ sĩ, album…). \newline
 		2b2. Người dùng có thể chọn xem bảng xếp hạng theo từng khu vực/quốc gia. \newline
@@ -915,7 +916,7 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		3a. Nếu người dùng nhập tên playlist đã tồn tại, hệ thống thông báo lỗi và yêu cầu người dùng nhập lại. \newline
 		3b. Nếu người dùng thêm 1 bài hát đã tồn tại trong playlist, hệ thống hiển thị thông báo đã tồn tại và không cập nhật bài hát.                                                                              \\ \hline
 		\textbf{Alternative Flow}
-		                       & 3a. Người dùng không đặt tên mà trực tiếp xác nhận, hệ thống vẫn sẽ ghi nhận và đặt tên theo format mặc định ``Unname Playlist''.\newline
+		                       & 3a. Người dùng không đặt tên mà trực tiếp xác nhận, hệ thống vẫn sẽ ghi nhận và đặt tên theo format mặc định ``Unnamed Playlist''.\newline
 		3c/3d. Nếu người dùng không xác nhận, hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của danh sách playlist.                                                                         \\ \hline
 	\end{tabularx}
 	\caption{Mô tả use-case Quản lý danh sách nhạc}
@@ -958,10 +959,12 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 	\end{tabularx}
 	\caption{Mô tả use-case Quản trị hệ thống}
 \end{table}
-
+% Thiết kế hành vi và giao diện người dùng
 \newpage
 \section{Thiết kế hành vi và giao diện người dùng}
+% Đăng nhập - đăng kí
 \subsection{Đăng nhập - đăng kí}
+% Đăng nhập - Người dùng
 \subsubsection{Đăng nhập - Login}
 \begin{itemize}
 	\item \textbf{Sequence Diagram:}
@@ -1000,6 +1003,7 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 	      \end{figure}
 	\item \textbf{UI:}
 \end{itemize}
+% Đăng ký - Người dùng
 \subsubsection{Đăng ký - Register}
 \begin{itemize}
 	\item \textbf{Sequence Diagram:}
@@ -1041,8 +1045,8 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 
 
 \end{itemize}
-
-\subsubsection{Quản lý tài khoản - Account Management}
+% Quản lý tài khoản - Người dùng
+\subsection{Quản lý tài khoản - Account Management}
 \begin{itemize}
 	\item \textbf{Sequence Diagram:}
 	      \begin{figure}[H]
@@ -1110,6 +1114,127 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 	\item \textbf{UI:}
 
 
+\end{itemize}
+% Quản lý danh sách nhạc - Người dùng
+\subsection{Quản lý danh sách nhạc - Playlist Management}
+\begin{itemize}
+	\item \textbf{Sequence Diagram:}
+	      \begin{figure}[H]
+		      \centering
+		      \includegraphics[width=0.9\textwidth]{Images/playlist/playlist-1_sd.png}
+		      \caption{Sequence Diagram - Playlist Management (Access "My Playlist")}
+	      \end{figure}
+        \begin{figure}[H]
+		      \centering
+		      \includegraphics[width=0.8\textwidth]{Images/playlist/playlist-3ab_sd.png}
+		      \caption{Sequence Diagram - Playlist Management (Create Playlist \& Add Song To Playlist)}
+	      \end{figure}
+        \begin{figure}[H]
+		      \centering
+		      \includegraphics[width=0.8\textwidth]{Images/playlist/playlist-3cd_sd.png}
+		      \caption{Sequence Diagram - Playlist Management (Remove Song From Playlist \& Delete Playlist)}
+	      \end{figure}
+	\item \textbf{Mục đích:} Thể hiện quy trình người dùng xem và thực hiện các thao tác điều khiển, quản lý danh sách nhạc (playlist) cá nhân của người dùng: truy cập "Danh sách nhạc của tôi", tạo playlist mới, thêm bài hát vào playlist, xoá bài hát khỏi playlist và xóa playlist.
+	\item \textbf{Thành phần liên quan:}
+	      \begin{itemize}
+		      \item Người dùng (User): người thực hiện các thao tác quản lý playlist.
+		      \item Giao diện quản lý (Management UI): giao diện để người dùng thao tác, nhập thông tin và hiển thị thông báo/kết quả.
+		      \item Hệ thống xử lý (Playlist Controller): nhận thông tin và xử lý xác thực dữ liệu.
+		      \item Cơ sở dữ liệu người dùng (Firestore): lưu trữ thông tin playlist của tài khoản người dùng.
+	      \end{itemize}
+	\item \textbf{Luồng tương tác:}
+	      \begin{enumerate}
+		      \item Người dùng truy cập "Danh sách nhạc của tôi".
+          \item Nếu có lỗi xảy ra (mất kết nối máy chủ, hệ thống bận,...), hệ thống từ chối mọi yêu cầu từ người dùng và giao diện hiển thị thông báo "Đang trong quá trình bảo trì".
+		      \item Nếu hệ thống hoạt động bình thường, hệ thống xử lý gửi yêu cầu đến cơ sở dữ liệu, cơ sở dữ liệu phản hồi kết quả là danh sách nhạc của người dùng hiện tại và hiển thị lên giao diện.
+		      \item Người dụng thực hiện thao tác điều khiển:
+		            \begin{itemize}
+			            \item Nếu người dùng muốn tạo playlist mới:
+			                  \begin{itemize}
+				                  \item Người dùng chọn "Tạo playlist mới" trên giao diện, nhập tên playlist (có thể để trống) và nhấn xác nhận.
+				                  \item Hệ thống tiếp nhận yêu cầu và kiểm tra tên playlist.
+				                  \item Nếu tên đã tồn tại, hệ thống thông báo lỗi và yêu cầu người dùng nhập lại.
+				                  \item Nếu người dùng không nhập tên cho playlist mà trực tiếp xác nhận, hệ thống sẽ tự động đặt tên theo định dạng mặc định "Unnamed Playlist" và lưu vào cơ sở dữ liệu.
+				                  \item Nếu tên hợp lệ, hệ thống gửi yêu cầu tạo playlist mới đến cơ sở dữ liệu, cơ sở dữ liệu lưu trữ playlist mới và phản hồi kết quả.
+				                  \item Giao diện hiển thị thông báo tạo playlist mới thành công và cập nhật theo dữ liệu mới.
+			                  \end{itemize}
+			            \item Nếu người dùng muốn thêm bài hát vào playlist:
+			                  \begin{itemize}
+				                  \item Người dùng chọn "Thêm vào playlist" với bài hát muốn thêm.
+				                  \item Hệ thống tiếp nhận yêu cầu và truy vấn đến cơ sở dữ liệu để hiển thị danh sách playlist hiện có để người dùng chọn.
+				                  \item Người dùng chọn playlist muốn thêm bài hát vào và nhấn xác nhận.
+				                  \item Hệ thống tiếp nhận yêu cầu và kiểm tra bài hát đã tồn tại trong playlist hay chưa.
+                          \item Nếu bài hát đã tồn tại trong playlist, hệ thống hiển thị thông báo đã tồn tại và không cập nhật bài hát.
+                          \item Nếu bài hát chưa tồn tại trong playlist, hệ thống gửi yêu cầu thêm bài hát vào playlist đến cơ sở dữ liệu.
+				                  \item Cơ sở dữ liệu thêm bài hát vào playlist và phản hồi kết quả.
+				                  \item Giao diện hiển thị thông báo thêm thành công và cập nhật theo dữ liệu mới.
+			                  \end{itemize}
+			            \item Nếu người dùng muốn xoá bài hát khỏi playlist:
+			                  \begin{itemize}
+				                  \item Người dùng chọn "Xoá khỏi playlist" với bài hát muốn xoá.
+                          \item Hệ thống hiển thị thông báo xác nhận xoá bài hát.
+                          \item Nếu người dùng xác nhận xoá bài hát, hệ thống tiếp nhận và gửi yêu cầu đến cơ sở dữ liệu, cơ sở dữ liệu sẽ xoá bài hát khỏi playlist và phản hồi kết quả, giao diện hiển thị thông báo xoá thành công và cập nhật theo dữ liệu mới.
+                          \item Nếu người dùng không xác nhận xoá bài hát mà chọn "Huỷ", hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của danh sách playlist, dữ liệu không thay đổi.
+			                  \end{itemize}
+                  \item Nếu người dùng muốn xoá playlist:
+                        \begin{itemize}
+                          \item Người dùng chọn "Xoá playlist" tại playlist muốn xoá.
+                          \item Hệ thống hiển thị thông báo xác nhận xoá playlist.
+                          \item Nếu người dùng xác nhận xoá playlist, hệ thống tiếp nhận và gửi yêu cầu đến cơ sở dữ liệu, cơ sở dữ liệu sẽ xoá playlist và phản hồi kết quả, giao diện hiển thị thông báo xoá thành công và cập nhật theo dữ liệu mới.
+                          \item Nếu người dùng không xác nhận xoá playlist mà chọn "Huỷ", hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của danh sách playlist, dữ liệu không thay đổi.
+                        \end{itemize}
+		            \end{itemize}
+            \item Hệ thống ghi nhận, cập nhật danh sách playlist của người dùng và làm mới UI.
+	      \end{enumerate}
+
+	\item \textbf{Activity Diagram:}
+	      \begin{figure}[H]
+			\centering
+          	\includegraphics[width=1.0\textwidth, height=0.7\textheight]{Images/playlist/playlist-activity.png}
+			\caption{Activity Diagram - Playlist Management}
+	      \end{figure}
+	\item \textbf{UI:}
+\end{itemize}
+% Khám phá và tìm kiếm - Người dùng, Nghệ sĩ
+\subsection{Khám phá và tìm kiếm - Discovery \& Search}
+\begin{itemize}
+	\item \textbf{Sequence Diagram:}
+	      \begin{figure}[H]
+				\centering
+				\includegraphics[width=0.9\textwidth, height=0.7\textheight]{Images/discover-search_sequence.png}
+				\caption{Sequence Diagram - Discovery \& Search}
+	      \end{figure}
+	\item \textbf{Mục đích:} Thể hiện quy trình người dùng truy cập tính năng Khám phá/Tìm kiếm, bao gồm việc nhập từ khóa, nhận gợi ý cá nhân hóa, xem xu hướng (Trending/Top Chart), và kết quả trả về từ hệ thống.
+	\item \textbf{Thành phần liên quan:}
+	      \begin{itemize}
+		      \item Người dùng (User): thực hiện thao tác mở tab khám phá/tìm kiếm, nhập từ khóa hoặc xem gợi ý.
+		      \item Giao diện người dùng (UI): nơi hiển thị ô tìm kiếm, gợi ý, kết quả tìm kiếm hoặc bảng xếp hạng.
+		      \item Search Controller: xử lý yêu cầu tìm kiếm, kiểm tra dữ liệu đầu vào và gọi truy vấn dữ liệu.
+		      \item Database: lưu trữ dữ liệu bài hát, nghệ sĩ, album, playlist, lịch sử nghe để phục vụ tìm kiếm và gợi ý.
+	      \end{itemize}
+	\item \textbf{Luồng tương tác:}
+	      \begin{enumerate}
+			\item Người dùng mở tab \textbf{Khám phá/Tìm kiếm}.
+			\item UI gửi yêu cầu đến Search Controller để lấy dữ liệu.
+			\item Search Controller kiểm tra yêu cầu, gọi dữ liệu từ Database.
+			\item Database trả kết quả: danh sách nhạc trending, top chart hoặc gợi ý theo sở thích.
+			\item Người dùng nhập từ khóa (bài hát/album/nghệ sĩ/playlist).
+			\item UI gửi yêu cầu tìm kiếm đến Search Controller.
+			\item Search Controller kiểm tra dữ liệu, truy xuất Database.
+			\item Database trả về kết quả:
+			\begin{itemize}
+				\item Nếu thành công $\rightarrow$ danh sách kết quả tìm thấy.
+				\item Nếu thất bại $\rightarrow$ trả về thông báo “Không tìm thấy kết quả”.
+			\end{itemize}
+			\item UI hiển thị kết quả hoặc thông báo lỗi cho người dùng.
+		  \end{enumerate}
+	\item \textbf{Activity Diagram:}
+		\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.9\textwidth]{Images/discover-search_activity.png}
+				\caption{Activity Diagram - Discovery \& Search}
+	      \end{figure}
+	\item \textbf{UI:}
 \end{itemize}
 
 \end{document}
