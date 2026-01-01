@@ -11,13 +11,16 @@
 \usepackage{enumerate}
 \usepackage{xcolor}
 \usepackage{graphicx}							% Standard graphics package
-\usepackage{array}
 \usepackage{tabularx, caption}
 \usepackage{multirow}
 \usepackage{multicol}
+\usepackage{seqsplit}
+\usepackage{longtable}
+\usepackage{makecell}
 \usepackage{rotating}
 \usepackage{graphics}
 \usepackage{geometry}
+\usepackage{verbatim}
 \usepackage{setspace}
 \usepackage{epsfig}
 \usepackage{tikz}
@@ -186,15 +189,7 @@
 \pagebreak
 \tableofcontents
 
-\pagebreak
 
-% Glossaries
-% {}
-\printunsrtglossary[type={symbols}, title={Danh sách kí hiệu}]
-\printunsrtglossary[type={abbreviations}, title={Danh sách từ viết tắt}]
-\pagebreak
-\listoffigures
-\listoftables
 \pagebreak
 \addcontentsline{toc}{section}{\listfigurename}
 \addcontentsline{toc}{section}{\listtablename}
@@ -244,10 +239,91 @@
 \pagebreak
 \section{Tổng quan về đề tài}
 \subsection{Mô tả đề tài}
+\cach MusicHUB là nền tảng nghe nhạc trực tuyến, được xây dựng nhằm giải quyết bài toán cân bằng giữa chất lượng âm thanh và trải nghiệm người dùng trong các điều kiện mạng khác nhau. Hệ thống tích hợp công nghệ \textbf{Adaptive Bitrate Streaming}, cho phép tự động chuyển đổi linh hoạt giữa các mức chất lượng, đảm bảo quá trình nghe nhạc liền mạch, không gián đoạn ngay cả khi kết nối Internet không ổn định.
+
+Không chỉ dừng lại ở chức năng phát nhạc cơ bản, MusicHUB tập trung vào trải nghiệm cá nhân hóa thông qua thuật toán gợi ý bài hát dựa trên lịch sử nghe và hành vi người dùng. Hệ thống cũng cung cấp các tính năng tương tác nâng cao như \textbf{đồng bộ lời bài hát (Lyric Sync)} theo thời gian thực và \textbf{nhận diện bài hát qua giai điệu (Audio Fingerprinting)}, giúp người dùng dễ dàng khám phá và tiếp cận nội dung mới.
+
+Đối với các Nghệ sĩ và nhà sáng tạo nội dung, MusicHUB cung cấp một hệ sinh thái quản lý toàn diện, từ việc upload tác phẩm, đến việc theo dõi thống kê chi tiết về lượt nghe và thời gian nghe. Hệ thống được thiết kế với kiến trúc bảo mật, tuân thủ các quy định về bản quyền và có khả năng mở rộng để phục vụ lượng người dùng lớn đồng thời.
 \subsection{Mục tiêu đề tài}
+\cach Đồ án hướng đến việc xây dựng một hệ thống hoàn chỉnh đáp ứng các tiêu chuẩn kỹ thuật và nghiệp vụ sau:
+\begin{itemize}
+    \item \textbf{Xây dựng nền tảng phát nhạc ổn định:} Đảm bảo khả năng xử lý file nhạc, hỗ trợ nhiều định dạng và cung cấp tính năng streaming mượt mà với độ trễ thấp ($\leq 800$ms).
+    \item \textbf{Tối ưu hóa trải nghiệm người dùng (UX):} Cung cấp giao diện trực quan, thời gian phản hồi nhanh, độ trễ thấp, trải nghiệm nghe nhạc mượt mà, cung cấp các tính năng nâng cao trải nghiệm nghe của người dùng. 
+    \item \textbf{Phát triển hệ thống gợi ý và tìm kiếm:} Giúp người dùng dễ dàng tiếp cận nội dung yêu thích thông qua các thuật toán gợi ý và công cụ tìm kiếm mạnh mẽ (theo từ khóa, giọng nói/âm thanh).
+    \item \textbf{Quản lý nội dung và bản quyền:} Cung cấp công cụ cho Nghệ sĩ tải lên và quản lý bài hát, đồng thời hỗ trợ Quản trị viên kiểm duyệt nội dung để đảm bảo tính hợp pháp và bản quyền.
+    \item \textbf{Đảm bảo hiệu năng và bảo mật:} Hệ thống phải chịu tải tốt (hỗ trợ nhiều người dùng đồng thời) và bảo mật thông tin cá nhân người dùng theo các tiêu chuẩn hiện hành.
+\end{itemize}
 \subsection{Phạm vi đề tài}
+\cach Hệ thống MusicHUB bao gồm các phân hệ chính và đối tượng sử dụng như sau:
+
+\vspace{0.5em}
+\textbf{1. Đối tượng sử dụng (Actors):}
+\begin{itemize}
+    \item \textbf{Người dùng (User/Listener):} Nghe nhạc, tạo playlist, tương tác (like, comment), tìm kiếm và nhận diện bài hát.
+    \item \textbf{Nghệ sĩ (Artist):} Ngoài các quyền của người dùng, nghệ sĩ có quyền upload bài hát/album, quản lý kho nhạc cá nhân.
+    \item \textbf{Quản trị viên (Admin):} Quản lý người dùng, kiểm duyệt nội dung bài hát, xem thống kê hệ thống.
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{2. Các module chức năng chính:}
+\begin{itemize}
+    \item \textbf{Module Tài khoản:} Đăng ký, đăng nhập (email/social), quản lý thông tin cá nhân, bảo mật tài khoản.
+    \item \textbf{Module Nghe nhạc (Player):} Phát nhạc, điều khiển (play/pause/next), hàng chờ (queue), lyric sync, adaptive bitrate.
+    \item \textbf{Module Khám phá (Discovery):} Tìm kiếm, bảng xếp hạng (Trending/Top Chart), gợi ý nhạc (Recommendation).
+    \item \textbf{Module Thư viện (Library):} Quản lý playlist cá nhân, bài hát yêu thích, lịch sử nghe nhạc.
+    \item \textbf{Module Upload \& Xử lý media:} Cho phép upload file nhạc, thumbnail, lyric file, xử lý file nhạc sang nhiều bitrate.
+    \item \textbf{Module Nhận diện:} Ghi âm và nhận diện bài hát qua so khớp mẫu âm thanh (Fingerprint).
+\end{itemize}
 \section{Functional Requirements - Non-functional Requirements}
 \subsection{Functional Requirements}
+\subsubsection{Functional Requirements}
+
+\subsubsubsection{Quản lý tài khoản và Xác thực (Authentication \& Account Management)}
+\begin{itemize}
+    \item \textbf{FR-AUTH-01:} Hệ thống phải cho phép người dùng đăng ký tài khoản mới bằng email hoặc số điện thoại.
+    \item \textbf{FR-AUTH-02:} Hệ thống phải hỗ trợ người dùng đăng nhập thông qua các nhà cung cấp định danh bên thứ ba (Google, Facebook, Apple ID).
+    \item \textbf{FR-AUTH-03:} Hệ thống phải cho phép người dùng đã đăng nhập cập nhật thông tin cá nhân (ảnh đại diện, tên hiển thị) và thay đổi mật khẩu.
+    \item \textbf{FR-AUTH-04:} Hệ thống phải cung cấp chức năng khôi phục mật khẩu thông qua email xác thực khi người dùng quên mật khẩu.
+    \item \textbf{FR-AUTH-05:} Hệ thống phải phân quyền truy cập dựa trên vai trò của tài khoản: Khách (Guest), Người dùng (User) và Quản trị viên (Admin).
+\end{itemize}
+
+\subsubsubsection{Trình phát nhạc và Điều khiển (Music Player \& Controls)}
+\begin{itemize}
+    \item \textbf{FR-PLAY-01:} Hệ thống phải cung cấp giao diện phát nhạc với các chức năng điều khiển cơ bản: Phát (Play), Tạm dừng (Pause), Chuyển bài kế tiếp (Next), và Quay lại bài trước (Previous).
+    \item \textbf{FR-PLAY-02:} Hệ thống phải cho phép người dùng thay đổi chế độ phát nhạc, bao gồm: Phát ngẫu nhiên (Shuffle), Lặp lại một bài (Repeat One) và Lặp lại danh sách (Repeat All).
+    \item \textbf{FR-PLAY-03:} Hệ thống phải hiển thị lời bài hát (Lyrics) đồng bộ theo thời gian thực (nếu dữ liệu lời bài hát khả dụng) trong quá trình phát nhạc.
+\end{itemize}
+
+\subsubsubsection{Quản lý danh sách nhạc (Playlist Management)}
+\begin{itemize}
+    \item \textbf{FR-LIST-01:} Hệ thống phải cho phép người dùng tạo các danh sách phát (Playlist) cá nhân mới với tên tùy chọn.
+    \item \textbf{FR-LIST-02:} Hệ thống phải cho phép người dùng thêm bài hát đang nghe hoặc bài hát từ kết quả tìm kiếm vào các Playlist hiện có.
+    \item \textbf{FR-LIST-03:} Hệ thống phải cho phép người dùng xóa bài hát khỏi Playlist hoặc xóa toàn bộ Playlist khỏi thư viện cá nhân.
+    \item \textbf{FR-LIST-04:} Hệ thống phải hiển thị danh sách tất cả các Playlist mà người dùng đã tạo trong mục ``Playlists''.
+\end{itemize}
+
+\subsubsubsection{Khám phá và Tìm kiếm (Discovery \& Search)}
+\begin{itemize}
+    \item \textbf{FR-SEARCH-01:} Hệ thống phải cung cấp chức năng tìm kiếm cho phép người dùng nhập từ khóa để truy vấn các bài hát, nghệ sĩ tương ứng.
+    \item \textbf{FR-DISC-01:} Hệ thống phải hiển thị danh sách các bài hát thịnh hành (Trending) và các bảng xếp hạng (Top Charts) dựa trên dữ liệu lượt nghe tổng hợp.
+    \item \textbf{FR-DISC-02:} Hệ thống phải tích hợp chức năng nhận diện âm nhạc (Audio Fingerprinting), cho phép ghi âm qua microphone thiết bị trong khoảng 15-20 giây để xác định thông tin bài hát đang phát từ môi trường xung quanh.
+    \item \textbf{FR-REC-01:} Hệ thống phải tự động tạo danh sách gợi ý bài hát (Recommendation) dựa trên lịch sử nghe nhạc của người dùng.
+\end{itemize}
+
+\subsubsubsection{Tương tác xã hội (Social Interaction)}
+\begin{itemize}
+    \item \textbf{FR-SOC-01:} Hệ thống phải cho phép người dùng thể hiện sự yêu thích bằng cách nhấn icon ``Thích'' (Like) bài hát.
+    \item \textbf{FR-SOC-02:} Hệ thống phải cho phép người dùng đăng tải và xóa bình luận (Comment) tại trang chi tiết của bài hát.
+    \item \textbf{FR-SOC-03:} Hệ thống phải cho phép người dùng theo dõi (Follow) các Nghệ sĩ để nhận thông báo về hoạt động mới.
+    \item \textbf{FR-SOC-04:} Hệ thống phải cung cấp chức năng chia sẻ (Share) bài hát hoặc playlist thông qua liên kết hoặc tích hợp với các mạng xã hội.
+\end{itemize}
+
+\subsubsubsection{Chức năng dành cho Nghệ sĩ và Quản trị (Artist \& Admin Features)}
+\begin{itemize}
+    \item \textbf{FR-ART-01:} Hệ thống phải cho phép tài khoản Nghệ sĩ tải lên (Upload) các tệp tin âm thanh (MP3, WAV), ảnh bìa và nhập dữ liệu metadata (tiêu đề, thể loại) cho bài hát mới.
+    \item \textbf{FR-ADM-01:} Hệ thống phải cung cấp giao diện quản trị cho phép Admin xem danh sách người dùng và thống kê hệ thống.
+    \item \textbf{FR-ADM-02:} Hệ thống phải cho phép Admin kiểm duyệt, ẩn hoặc gỡ bỏ các nội dung vi phạm chính sách hoặc bản quyền.
+\end{itemize}
 \subsubsection{Non-interactive Requirements}
 \subsubsubsection{Tính năng Streaming ở nhiều mức bitrate}
 
@@ -321,45 +397,6 @@ Danh sách gợi ý có thể hiển thị dưới dạng playlist hoặc phần
 	      \end{itemize}
 \end{itemize}
 
-\subsubsubsection{Tính năng tự động tạo ảnh cover/thumbnail nếu Người dùng không upload}
-\cach Khi Người dùng upload bài hát nhưng không cung cấp ảnh bìa (cover) hoặc thumbnail, hệ thống sẽ tự động sinh ra hình ảnh thay thế.
-Hình ảnh được tạo có thể dựa trên thông tin metadata của bài hát (tên, nghệ sĩ, thể loại) hoặc sử dụng mẫu có sẵn.
-Mục tiêu là đảm bảo tất cả các bài hát trong hệ thống đều có ảnh hiển thị nhất quán và trực quan.
-
-\begin{itemize}
-	\item \textbf{Cách hoạt động:}
-	      \begin{itemize}
-		      \item Hệ thống kiểm tra file ảnh cover kèm theo khi upload bài hát.
-		      \item Nếu không có ảnh, hệ thống kích hoạt module sinh ảnh tự động.
-		      \item Ảnh được tạo bằng cách:
-		            \begin{itemize}
-			            \item Sinh ngẫu nhiên từ template mặc định theo thể loại nhạc.
-			            \item Kết hợp text (tên bài hát, nghệ sĩ) với nền gradient hoặc ảnh mẫu.
-		            \end{itemize}
-		      \item Ảnh được gán cho bài hát và hiển thị trong thư viện, playlist, cũng như trình phát nhạc.
-	      \end{itemize}
-
-	\item \textbf{Input:}
-	      \begin{itemize}
-		      \item File nhạc gốc upload lên hệ thống.
-		      \item Metadata bài hát (tên, nghệ sĩ, thể loại).
-		      \item Bộ template mặc định của hệ thống.
-	      \end{itemize}
-
-	\item \textbf{Output:}
-	      \begin{itemize}
-		      \item Ảnh cover/thumbnail tự động sinh ra cho bài hát.
-		      \item Đường dẫn hoặc ID của ảnh lưu trữ trên server.
-	      \end{itemize}
-
-
-	\item \textbf{Lợi ích:}
-	      \begin{itemize}
-		      \item Đảm bảo giao diện ứng dụng đồng bộ, không có bài hát bị thiếu ảnh hiển thị.
-		      \item Giúp Người dùng tiết kiệm thời gian chuẩn bị file ảnh trước khi upload.
-		      \item Nâng cao trải nghiệm nghe nhạc với hình ảnh trực quan và thẩm mỹ.
-	      \end{itemize}
-\end{itemize}
 \subsubsubsection{Tính năng tự động phát bài hát tiếp theo trong playlist/queue}
 \cach Khi một bài hát trong playlist hoặc queue kết thúc, hệ thống sẽ tự động phát bài hát kế tiếp mà không cần thao tác thủ công từ Người dùng.
 Điều này giúp trải nghiệm nghe nhạc liền mạch và thuận tiện, đặc biệt khi Người dùng đang nghe nhạc trong lúc làm việc, tập luyện hoặc thư giãn.
@@ -602,6 +639,8 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 	\item Hệ thống cần được kiểm tra và bảo trì định kỳ \textbf{tối đa 3 tháng/lần}.
 	\item Kiến trúc phần mềm module hóa, hỗ trợ CI/CD, dễ dàng thêm mới tính năng như gợi ý nhạc AI, podcast,...
 \end{itemize}
+
+% Chèn đoạn này vào vị trí mong muốn trong document (ví dụ: sau section 2.2)
 
 \section{Use-case Diagram và Use-case Scenario}
 \subsection{Use-case Diagram}
@@ -891,7 +930,7 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 	\renewcommand{\arraystretch}{1.3} % tăng khoảng cách dòng trong bảng
 	\begin{tabularx}{\textwidth}{|l|X|}
 		\hline
-		\textbf{Use case name} & Quản lý danh sách nhạc                                                                                                                                                             \\ \hline
+		\textbf{Use case name} & Quản lý danh sách nhạc (playlist)                                                                                                                                                             \\ \hline
 		\textbf{Actors}        & Người dùng                                                                                                                                                                         \\ \hline
 		\textbf{Description}   & Cho phép người dùng xem, thêm, sửa và xóa bài hát trong danh sách nhạc của họ.                                                                                                     \\ \hline
 		\textbf{Trigger}       & Người dùng truy cập danh sách nhạc và chọn một chức năng quản lý danh sách nhạc (tạo danh sách, thêm bài hát, xóa bài hát, xóa danh sách, .v.v).                                   \\ \hline
@@ -903,16 +942,16 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		                       & 1. Danh sách nhạc của User được cập nhật theo hành động đã thực hiện (thêm, sửa, xóa). \newline
 		2. Người dùng nhận được thông báo về kết quả của hành động.                                                                                                                                                 \\ \hline
 		\textbf{Normal Flow}
-		                       & 1. Người dùng truy cập vào phần “Danh sách nhạc của tôi” trong giao diện hệ thống. \newline
+		                       & 1. Người dùng truy cập vào phần “Playlists” trong giao diện hệ thống. \newline
 		2. Hệ thống hiển thị danh sách nhạc của người dùng hiện tại. \newline
 		3. Người dùng thực hiện thao tác điều khiển: \newline
-		\cach 3a. Người dụng chọn ``Tạo playlist mới'', hệ thống hiển thị yêu cầu điền tên playlist, người dùng nhập và nhấn xác nhận. \newline
-		\cach 3b. Người dùng chọn ``Thêm vào playlist'' với bài hát muốn thêm, hệ thống yêu cầu chọn playlist muốn thêm, người dùng chọn và nhấn xác nhận. \newline
-		\cach 3c. Người dùng chọn ``Xóa khỏi playlist'' với bài hát muốn xóa, hệ thống hiển thị thông báo xác nhận, người dùng xác nhận. \newline
-		\cach 3d. Người dùng chọn ``Xóa playlist'', hệ thống hiển thị thông báo xác nhận, người dùng xác nhận. \newline
+		\cach 3a. Người dụng chọn ``Create new playlist'', hệ thống hiển thị yêu cầu điền tên playlist, người dùng nhập và nhấn xác nhận. \newline
+		\cach 3b. Người dùng chọn ``Add to playlist'' với bài hát muốn thêm, hệ thống yêu cầu chọn playlist muốn thêm, người dùng chọn và nhấn xác nhận. \newline
+		\cach 3c. Người dùng chọn nút xóa tại bài hát muốn xóa trong playlist, hệ thống hiển thị thông báo xác nhận, người dùng xác nhận. \newline
+		\cach 3d. Người dùng chọn ``Delete'' tại playlist muốn xóa, hệ thống hiển thị thông báo xác nhận, người dùng xác nhận. \newline
 		4. Hệ thống ghi nhận và cập nhật danh sách playlist của người dùng.                                                                                                                                         \\ \hline
 		\textbf{Exception Flow}
-		                       & 1. Nếu lỗi xảy ra (mất kết nối máy chủ, hệ thống bận, .v.v), mọi yêu cầu từ người dùng đều bị từ chối và hệ thống sẽ hiển thị thông báo ``Đang trong quá trình bảo trì''. \newline
+		                       & 1. Nếu lỗi xảy ra (mất kết nối máy chủ, hệ thống bận, .v.v), mọi yêu cầu từ người dùng đều bị từ chối và hệ thống sẽ hiển thị thông báo lỗi. \newline
 		3a. Nếu người dùng nhập tên playlist đã tồn tại, hệ thống thông báo lỗi và yêu cầu người dùng nhập lại. \newline
 		3b. Nếu người dùng thêm 1 bài hát đã tồn tại trong playlist, hệ thống hiển thị thông báo đã tồn tại và không cập nhật bài hát.                                                                              \\ \hline
 		\textbf{Alternative Flow}
@@ -961,6 +1000,126 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 \end{table}
 % Thiết kế hành vi và giao diện người dùng
 \newpage
+\section{Phân tích hệ thống}
+\subsection {Class Diagram}
+\begin {figure} [H]
+	\centering
+	\makebox[\textwidth][c]{
+		\includegraphics[width=1.5\textwidth]{Images/class_diagram.png}
+	}
+	\caption{Class Diagram}
+\end{figure}
+\newpage
+
+\subsection{Mô tả phương thức}
+% =============================================================================
+% 1. NHÓM LỚP NGƯỜI DÙNG
+% =============================================================================
+
+\subsubsection{Nhóm lớp Người dùng (User Group)}
+
+Nhóm này quản lý các tác vụ liên quan đến tài khoản, xác thực và các hành vi tương tác trực tiếp của người dùng với hệ thống.
+
+\begin{longtable}{|p{3cm}|p{5cm}|p{7cm}|}
+\hline
+\textbf{Tên lớp} & \textbf{Phương thức} & \textbf{Mô tả chức năng} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Tên lớp} & \textbf{Phương thức} & \textbf{Mô tả chức năng} \\
+\hline
+\endhead
+
+\multirow{12}{*}{\textbf{User}} 
+& \texttt{login()} & Xác thực người dùng (Local/OAuth). \\ \cline{2-3}
+& \texttt{logout()} & Đăng xuất và xóa phiên làm việc. \\ \cline{2-3}
+& \texttt{register()} & Đăng ký tài khoản mới vào hệ thống. \\ \cline{2-3}
+& \texttt{updateProfile()} & Cập nhật thông tin cá nhân (Avatar, Nickname, Bio). \\ \cline{2-3}
+& \texttt{changePassword()} & Đổi mật khẩu đăng nhập. \\ \cline{2-3}
+& \texttt{like(trackId)} & Thích bài hát. \\ \cline{2-3}
+& \texttt{unlike(trackId)} & Bỏ thích bài hát. \\ \cline{2-3}
+& \texttt{follow(userId)} & Theo dõi nghệ sĩ hoặc người dùng khác. \\ \cline{2-3}
+& \texttt{unfollow(userId)} & Hủy theo dõi. \\ \cline{2-3}
+& \texttt{\seqsplit{searchTrack(searchQuery)}} & Tìm kiếm bài hát theo tên hoặc nghệ sĩ (input từ thanh header). \\ \cline{2-3}
+& \texttt{uploadTrack()} & Xử lý tải lên file mp3, convert sang HLS và lưu metadata. \\ \cline{2-3}
+& \texttt{deleteTrack(trackId)} & Xóa bài hát khỏi hệ thống (yêu cầu quyền sở hữu). \\ \cline{2-3}
+& \texttt{adjustVolume(value)} & Điều chỉnh âm lượng của trình phát nhạc. \\
+\hline
+\caption{Mô tả các phương thức nhóm lớp Người dùng}
+\end{longtable}
+
+
+% =============================================================================
+% 2. NHÓM LỚP NGHIỆP VỤ VÀ DỮ LIỆU
+% =============================================================================
+
+\subsubsection{Nhóm lớp Nghiệp vụ và Dữ liệu (Business \& Data)}
+
+Nhóm này chứa các thực thể cốt lõi của ứng dụng nghe nhạc, bao gồm quản lý bài hát, danh sách phát và tương tác cộng đồng.
+
+\begin{longtable}{|p{3cm}|p{5cm}|p{7cm}|}
+\hline
+\textbf{Tên lớp} & \textbf{Phương thức} & \textbf{Mô tả chức năng} \\
+\hline
+
+% --- TRACK ---
+\multirow{5}{*}{\textbf{Track}} 
+& \texttt{play()} & Phát bài hát (streaming HLS) và kích hoạt ghi nhận lịch sử. \\ \cline{2-3}
+& \texttt{\seqsplit{incrementPlayCount()}} & Tăng số lượt nghe trong cơ sở dữ liệu. \\ \cline{2-3}
+& \texttt{showLyric()} & Hiển thị lời bài hát (nếu có file .lrc). \\ \hline
+
+% --- PLAYLIST ---
+\multirow{10}{*}{\textbf{Playlist}} 
+& \texttt{createPlaylist()} & Tạo danh sách phát mới. \\ \cline{2-3}
+& \texttt{deletePlaylist()} & Xóa danh sách phát hiện tại. \\ \cline{2-3}
+& \texttt{addTrack(trackId)} & Thêm bài hát vào playlist. \\ \cline{2-3}
+& \texttt{\seqsplit{removeTrack(trackId)}} & Xóa bài hát khỏi playlist. \\ \cline{2-3}
+& \texttt{updateInfo()} & Cập nhật tên, mô tả, ảnh bìa playlist. \\ \cline{2-3}
+& \texttt{getQueue()} & Lấy danh sách hàng đợi các bài hát sắp phát. \\ \cline{2-3}
+& \texttt{next()} & Chuyển sang bài hát kế tiếp trong hàng đợi. \\ \cline{2-3}
+& \texttt{previous()} & Quay lại bài hát trước đó. \\ \cline{2-3}
+& \texttt{shuffle()} & Xáo trộn ngẫu nhiên danh sách phát. \\ \cline{2-3}
+& \texttt{repeat()} & Lặp lại danh sách hoặc bài hát hiện tại. \\ \hline
+
+% --- COMMENT ---
+\multirow{4}{*}{\textbf{Comment}} 
+& \texttt{add()} & Đăng tải bình luận mới cho bài hát. \\ \cline{2-3}
+& \texttt{delete()} & Xóa bình luận. \\ \cline{2-3}
+& \texttt{like()} & Thích một bình luận. \\ \cline{2-3}
+& \texttt{unlike()} & Bỏ thích bình luận. \\
+\hline
+\caption{Mô tả các phương thức nhóm lớp Nghiệp vụ và Dữ liệu}
+\end{longtable}
+
+
+% =============================================================================
+% 3. NHÓM LỚP HỆ THỐNG VÀ DỊCH VỤ
+% =============================================================================
+
+\subsubsection{Nhóm lớp Hệ thống và Dịch vụ (System \& Services)}
+
+Nhóm này xử lý các tác vụ nền tảng như thông báo thời gian thực và tích hợp API nhận diện âm thanh.
+
+\begin{longtable}{|p{3cm}|p{5cm}|p{7cm}|}
+\hline
+\textbf{Tên lớp} & \textbf{Phương thức} & \textbf{Mô tả chức năng} \\
+\hline
+
+% --- NOTIFICATION ---
+\multirow{3}{*}{\textbf{Notification}} 
+& \texttt{add()} & Tạo thông báo mới (khi có sự kiện like, follow, upload). \\ \cline{2-3}
+& \texttt{delete()} & Xóa thông báo khỏi danh sách. \\ \cline{2-3}
+& \texttt{markAsRead()} & Đánh dấu thông báo đã được xem. \\ \hline
+
+% --- RECOGNITION ---
+\makecell[l]{\textbf{Recognition} \\ \textbf{Service}} 
+& \texttt{\seqsplit{detectSong(audioBuffer)}} & Gửi mẫu âm thanh đến API (Shazam) để nhận diện và trả về danh sách bài hát khớp trong hệ thống. \\ \hline
+\caption{Mô tả các phương thức nhóm lớp Hệ thống và Dịch vụ}
+\end{longtable}
+
+\input{dbschema.tex}
+
+\newpage
 \section{Thiết kế hành vi và giao diện người dùng}
 % Đăng nhập - đăng kí
 \subsection{Đăng nhập - đăng kí}
@@ -1001,7 +1160,6 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		      \includegraphics[width=0.6\textwidth]{Images/login_activity.png}
 		      \caption{Activity Diagram - Login}
 	      \end{figure}
-	\item \textbf{UI:}
 \end{itemize}
 % Đăng ký - Người dùng
 \subsubsection{Đăng ký - Register}
@@ -1041,7 +1199,6 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		      \includegraphics[width=0.6\textwidth]{Images/register_activity.png}
 		      \caption{Activity Diagram - Register}
 	      \end{figure}
-	\item \textbf{UI:}
 
 
 \end{itemize}
@@ -1111,7 +1268,6 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 		      \includegraphics[width=0.65\textwidth]{Images/account-management_activity.png}
 		      \caption{Activity Diagram - Account Management}
 	      \end{figure}
-	\item \textbf{UI:}
 
 
 \end{itemize}
@@ -1122,7 +1278,7 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 	      \begin{figure}[H]
 		      \centering
 		      \includegraphics[width=0.9\textwidth]{Images/playlist/playlist-1_sd.png}
-		      \caption{Sequence Diagram - Playlist Management (Access "My Playlist")}
+		      \caption{Sequence Diagram - Playlist Management (Access "Playlists")}
 	      \end{figure}
         \begin{figure}[H]
 		      \centering
@@ -1132,9 +1288,9 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
         \begin{figure}[H]
 		      \centering
 		      \includegraphics[width=0.8\textwidth]{Images/playlist/playlist-3cd_sd.png}
-		      \caption{Sequence Diagram - Playlist Management (Remove Song From Playlist \& Delete Playlist)}
+		      \caption{\centering Sequence Diagram - Playlist Management \\ (Remove Song From Playlist \& Delete Playlist)}
 	      \end{figure}
-	\item \textbf{Mục đích:} Thể hiện quy trình người dùng xem và thực hiện các thao tác điều khiển, quản lý danh sách nhạc (playlist) cá nhân của người dùng: truy cập "Danh sách nhạc của tôi", tạo playlist mới, thêm bài hát vào playlist, xoá bài hát khỏi playlist và xóa playlist.
+	\item \textbf{Mục đích:} Thể hiện quy trình người dùng xem và thực hiện các thao tác điều khiển, quản lý danh sách nhạc (playlist) cá nhân của người dùng: truy cập "Playlists" trên dashboard, tạo playlist mới, thêm bài hát vào playlist, xoá bài hát khỏi playlist và xóa playlist.
 	\item \textbf{Thành phần liên quan:}
 	      \begin{itemize}
 		      \item Người dùng (User): người thực hiện các thao tác quản lý playlist.
@@ -1144,14 +1300,14 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 	      \end{itemize}
 	\item \textbf{Luồng tương tác:}
 	      \begin{enumerate}
-		      \item Người dùng truy cập "Danh sách nhạc của tôi".
-          \item Nếu có lỗi xảy ra (mất kết nối máy chủ, hệ thống bận,...), hệ thống từ chối mọi yêu cầu từ người dùng và giao diện hiển thị thông báo "Đang trong quá trình bảo trì".
+		      \item Người dùng truy cập "Playlists" trên dashboard.
+          \item Nếu có lỗi xảy ra (mất kết nối máy chủ, hệ thống bận,...), hệ thống từ chối mọi yêu cầu từ người dùng và giao diện hiển thị thông báo lỗi.
 		      \item Nếu hệ thống hoạt động bình thường, hệ thống xử lý gửi yêu cầu đến cơ sở dữ liệu, cơ sở dữ liệu phản hồi kết quả là danh sách nhạc của người dùng hiện tại và hiển thị lên giao diện.
 		      \item Người dụng thực hiện thao tác điều khiển:
 		            \begin{itemize}
 			            \item Nếu người dùng muốn tạo playlist mới:
 			                  \begin{itemize}
-				                  \item Người dùng chọn "Tạo playlist mới" trên giao diện, nhập tên playlist (có thể để trống) và nhấn xác nhận.
+				                  \item Người dùng chọn "Create new playlist" trên giao diện, nhập tên playlist (có thể để trống) và nhấn xác nhận.
 				                  \item Hệ thống tiếp nhận yêu cầu và kiểm tra tên playlist.
 				                  \item Nếu tên đã tồn tại, hệ thống thông báo lỗi và yêu cầu người dùng nhập lại.
 				                  \item Nếu người dùng không nhập tên cho playlist mà trực tiếp xác nhận, hệ thống sẽ tự động đặt tên theo định dạng mặc định "Unnamed Playlist" và lưu vào cơ sở dữ liệu.
@@ -1160,7 +1316,7 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 			                  \end{itemize}
 			            \item Nếu người dùng muốn thêm bài hát vào playlist:
 			                  \begin{itemize}
-				                  \item Người dùng chọn "Thêm vào playlist" với bài hát muốn thêm.
+				                  \item Người dùng chọn "Add to playlist" với bài hát muốn thêm.
 				                  \item Hệ thống tiếp nhận yêu cầu và truy vấn đến cơ sở dữ liệu để hiển thị danh sách playlist hiện có để người dùng chọn.
 				                  \item Người dùng chọn playlist muốn thêm bài hát vào và nhấn xác nhận.
 				                  \item Hệ thống tiếp nhận yêu cầu và kiểm tra bài hát đã tồn tại trong playlist hay chưa.
@@ -1171,17 +1327,17 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 			                  \end{itemize}
 			            \item Nếu người dùng muốn xoá bài hát khỏi playlist:
 			                  \begin{itemize}
-				                  \item Người dùng chọn "Xoá khỏi playlist" với bài hát muốn xoá.
+				                  \item Người dùng chọn nút xoá tại bài hát muốn xoá trong playlist.
                           \item Hệ thống hiển thị thông báo xác nhận xoá bài hát.
                           \item Nếu người dùng xác nhận xoá bài hát, hệ thống tiếp nhận và gửi yêu cầu đến cơ sở dữ liệu, cơ sở dữ liệu sẽ xoá bài hát khỏi playlist và phản hồi kết quả, giao diện hiển thị thông báo xoá thành công và cập nhật theo dữ liệu mới.
-                          \item Nếu người dùng không xác nhận xoá bài hát mà chọn "Huỷ", hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của danh sách playlist, dữ liệu không thay đổi.
+                          \item Nếu người dùng không xác nhận xoá bài hát mà chọn "Cancel", hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của danh sách playlist, dữ liệu không thay đổi.
 			                  \end{itemize}
                   \item Nếu người dùng muốn xoá playlist:
                         \begin{itemize}
-                          \item Người dùng chọn "Xoá playlist" tại playlist muốn xoá.
+                          \item Người dùng chọn "Delete" tại playlist muốn xoá.
                           \item Hệ thống hiển thị thông báo xác nhận xoá playlist.
                           \item Nếu người dùng xác nhận xoá playlist, hệ thống tiếp nhận và gửi yêu cầu đến cơ sở dữ liệu, cơ sở dữ liệu sẽ xoá playlist và phản hồi kết quả, giao diện hiển thị thông báo xoá thành công và cập nhật theo dữ liệu mới.
-                          \item Nếu người dùng không xác nhận xoá playlist mà chọn "Huỷ", hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của danh sách playlist, dữ liệu không thay đổi.
+                          \item Nếu người dùng không xác nhận xoá playlist mà chọn "Cancel", hệ thống hoàn tác toàn bộ thao tác và cập nhật lại trạng thái ban đầu của danh sách playlist, dữ liệu không thay đổi.
                         \end{itemize}
 		            \end{itemize}
             \item Hệ thống ghi nhận, cập nhật danh sách playlist của người dùng và làm mới UI.
@@ -1193,10 +1349,9 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
           	\includegraphics[width=1.0\textwidth]{Images/playlist/playlist-activity.png}
 			\caption{Activity Diagram - Playlist Management}
 	      \end{figure}
-	\item \textbf{UI:}
 \end{itemize}
-% Khám phá và tìm kiếm - Người dùng, Nghệ sĩ
-\subsection{Khám phá và tìm kiếm - Discovery \& Search}
+% Trang chủ và tìm kiếm - Người dùng, Nghệ sĩ
+\subsection{Trang chủ và tìm kiếm - Homepage \& Search}
 \begin{itemize}
 	\item \textbf{Sequence Diagram:}
 	      \begin{figure}[H]
@@ -1204,26 +1359,26 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 				\includegraphics[width=0.9\textwidth, height=0.7\textheight]{Images/discover-search_sequence.png}
 				\caption{Sequence Diagram - Discovery \& Search}
 	      \end{figure}
-	\item \textbf{Mục đích:} Thể hiện quy trình người dùng truy cập tính năng Khám phá/Tìm kiếm, bao gồm việc nhập từ khóa, nhận gợi ý cá nhân hóa, xem xu hướng (Trending/Top Chart), và kết quả trả về từ hệ thống.
+	\item \textbf{Mục đích:} Thể hiện quy trình người dùng truy cập tính năng Trang chủ/Tìm kiếm, bao gồm việc nhập từ khóa, nhận gợi ý cá nhân hóa, xem xu hướng (Trending/Top Chart), và kết quả trả về từ hệ thống.
 	\item \textbf{Thành phần liên quan:}
 	      \begin{itemize}
-		      \item Người dùng (User): thực hiện thao tác mở tab khám phá/tìm kiếm, nhập từ khóa hoặc xem gợi ý.
-		      \item Giao diện người dùng (UI): nơi hiển thị ô tìm kiếm, gợi ý, kết quả tìm kiếm hoặc bảng xếp hạng.
+		      \item Người dùng (User): thực hiện thao tác truy cập trang chủ/tìm kiếm, nhập từ khóa hoặc xem gợi ý.
+		      \item Giao diện người dùng (UI): nơi hiển thị ô tìm kiếm, gợi ý, kết quả tìm kiếm.
 		      \item Search Controller: xử lý yêu cầu tìm kiếm, kiểm tra dữ liệu đầu vào và gọi truy vấn dữ liệu.
-		      \item Database: lưu trữ dữ liệu bài hát, nghệ sĩ, album, playlist, lịch sử nghe để phục vụ tìm kiếm và gợi ý.
+		      \item Database: lưu trữ dữ liệu bài hát, nghệ sĩ, playlist, lịch sử nghe để phục vụ tìm kiếm và gợi ý.
 	      \end{itemize}
 	\item \textbf{Luồng tương tác:}
 	      \begin{enumerate}
-			\item Người dùng mở tab \textbf{Khám phá/Tìm kiếm}.
+			\item Người dùng truy cập \textbf{Trang chủ/Tìm kiếm}.
 			\item UI gửi yêu cầu đến Search Controller để lấy dữ liệu.
 			\item Search Controller kiểm tra yêu cầu, gọi dữ liệu từ Database.
-			\item Database trả kết quả: danh sách nhạc trending, top chart hoặc gợi ý theo sở thích.
-			\item Người dùng nhập từ khóa (bài hát/album/nghệ sĩ/playlist).
+			\item Database trả kết quả là danh sách các bài hát dựa theo tên bài hát/nghệ sĩ.
+			\item Người dùng nhập từ khóa (tên bài hát/nghệ sĩ).
 			\item UI gửi yêu cầu tìm kiếm đến Search Controller.
 			\item Search Controller kiểm tra dữ liệu, truy xuất Database.
 			\item Database trả về kết quả:
 			\begin{itemize}
-				\item Nếu thành công $\rightarrow$ danh sách kết quả tìm thấy.
+				\item Nếu thành công $\rightarrow$ danh sách bài hát tìm thấy.
 				\item Nếu thất bại $\rightarrow$ trả về thông báo “Không tìm thấy kết quả”.
 			\end{itemize}
 			\item UI hiển thị kết quả hoặc thông báo lỗi cho người dùng.
@@ -1234,7 +1389,6 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 				\includegraphics[width=0.9\textwidth]{Images/discover-search_activity.png}
 				\caption{Activity Diagram - Discovery \& Search}
 	      \end{figure}
-	\item \textbf{UI:}
 \end{itemize}
 
 %Upoad bài hát
@@ -1246,11 +1400,11 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 				\includegraphics[width=1\textwidth]{Images/upload_sequence.png}
 				\caption{Sequence Diagram - Upload Song}
 	      \end{figure}
-	\item \textbf{Mục đích:} Thể hiện quy trình người dùng truy cập tính năng Upload bài hát, bao gồm việc chọn bài hát, nhập thông tin và nhận phản hồi từ hệ thống.
+	\item \textbf{Mục đích:} Thể hiện quy trình người dùng truy cập tính năng Upload bài hát (bài hát + thumbnail + lyric (nếu có)), bao gồm việc chọn bài hát, nhập thông tin và nhận phản hồi từ hệ thống.
 	\item \textbf{Thành phần liên quan:}
 	      \begin{itemize}
 		      \item Người dùng (User): thực hiện thao tác mở tab upload, chọn file và nhập thông tin bài hát.
-		      \item Giao diện người dùng (UI): giao diện để người dùng chọn file, nhập thông tin và hiển thị kết quả.
+		      \item Giao diện người dùng (UI): giao diện để người dùng chọn file (file bài hát, thumbnail, lyric), nhập thông tin và hiển thị kết quả.
 		      \item Upload Controller: xử lý yêu cầu tải lên, kiểm tra dữ liệu đầu vào và gọi yêu cầu lưu dữ liệu.
 		      \item Storage: lưu trữ file bài hát.
 			  \item Database: lưu trữ dữ liệu bài hát (metadata: tên, ca sĩ, đường dẫn file,...).
@@ -1258,7 +1412,7 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 	\item \textbf{Luồng tương tác:}
 	      \begin{enumerate}
 			\item Người dùng mở tab \textbf{Upload}.
-			\item Người dùng chọn file bài hát từ thiết bị và nhập thông tin (tên bài hát, nghệ sĩ, album, thể loại).
+			\item Người dùng chọn file bài hát từ thiết bị và nhập thông tin (tên bài hát, nghệ sĩ, album, thể loại), chọn upload file ảnh thumbnail hoặc file lyric (nếu có).
 			\item UI gửi yêu cầu tải lên đến Upload Controller.
 			\item Upload Controller kiểm tra dữ liệu, gọi Storage để lưu file.
 			\item Storage lưu file và trả về đường dẫn.
@@ -1277,6 +1431,170 @@ Hệ thống cần tuân thủ các quy định về bản quyền âm nhạc, b
 				\includegraphics[width=0.7\textwidth]{Images/upload_activity.png}
 				\caption{Activity Diagram - Upload Song}
 	      \end{figure}
-	\item \textbf{UI:}
 \end{itemize}
+
+\subsection{Phát nhạc - Player}
+\begin{itemize}
+	\item \textbf{Sequence Diagram:}
+	      \begin{figure}[H]
+				\centering
+				\includegraphics[width=1\textwidth]{Images/player_sequence.png}
+				\caption{Sequence Diagram - Player}
+	      \end{figure}
+	\item \textbf{Mục đích:} Thể hiện quy trình người dùng thao tác với trình phát nhạc, từ việc phát 1 bài hát cho đến các tùy chọn như phát (play), tạm dừng (pause), chuyển bài (next), lùi bài (previous), trộn bài (shuffle), nghe lặp lại (repeat), tua đến đoạn khác.
+	\item \textbf{Thành phần liên quan:}
+	      \begin{itemize}
+		      \item Người dùng (User): thực hiện thao tác trên thanh phát nhạc.
+		      \item Giao diện người dùng (UI): giao diện hiển thị thông tin bài hát gồm (tên bài hát, nghệ sĩ, ảnh thumbnail,...) và thanh phát nhạc với các nút bấm.
+		      \item Player Controller: xử lý yêu cầu lấy metadata và stream nhạc từ music server.
+			  \item Music server: hệ thống lưu trữ metagata của bài hát và các file dùng để stream nhạc.
+	      \end{itemize}
+	\item \textbf{Luồng tương tác:}
+	      \begin{enumerate}
+			\item Người dùng chọn 1 bài hát.
+			\item UI gửi yêu cầu lên Player Controller.
+			\item Player Controller lấy metadata từ Music server và gửi yêu cầu stream nhạc.
+			\item Music server trả về metadata và stream audio.
+			\item UI cập nhật các thông tin của bài hát và cập nhật thanh thời lượng.
+			\item Người dùng tùy chọn các tính năng trên thanh phát nhạc.
+			\item Khi 1 bài kết thúc, hệ thống sẽ tự động phát bài kế tiếp dựa trên tính năng mà người dùng đã chọn.
+		  \end{enumerate}
+	\item \textbf{Activity Diagram:}
+		\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\textwidth]{Images/player_activity.png}
+				\caption{Activity Diagram - Player}
+	      \end{figure}
+\end{itemize}
+
+\subsection{Nhận diện bài hát - Recognition}
+\begin{itemize}
+	\item \textbf{Sequence Diagram:}
+	      \begin{figure}[H]
+				\centering
+				\includegraphics[width=1\textwidth]{Images/recognition_sequence.png}
+				\caption{Sequence Diagram - Recognition}
+	      \end{figure}
+	\item \textbf{Mục đích:} Thể hiện quy trình người dùng thu âm bài hát từ micro của thiết bị để nhận diện bài hát từ đoạn thu âm đó và trả về kết quả dựa trên database của hệ thống.
+	\item \textbf{Thành phần liên quan:}
+	      \begin{itemize}
+		      \item Người dùng (User): thực hiện thao tác phát 1 bài hát từ loa ngoài.
+		      \item Giao diện người dùng (UI): giao diện hiển thị trạng thái của tính năng nhận diện và kết quả tìm được.
+		      \item Recognition Controller: xử lý file thu âm, và gửi yêu cầu đến Shazam api và so sánh kết quả với database.
+			  \item Shazam api: api của Shazam cho phép nhận diện bài hát qua giai điệu.
+			  \item Database: Lưu trữ toàn bộ dữ liệu bài hát của hệ thống để so khớp kết quả từ Shazam api.
+	      \end{itemize}
+	\item \textbf{Luồng tương tác:}
+	      \begin{enumerate}
+			\item Người dùng bấm vào biểu tượng micro trên thanh tìm kiếm.
+			\item UI hiển thị giao diện nhận diện.
+			\item Người dùng bấm bắt đầu.
+			\item UI tiến hành ghi nhận âm thanh từ micro của thiết bị và gửi sang Recognition Controller.
+			\item Recognition controller xử lí file ghi âm thành file nhị phân và gửi yêu cầu dến Shazam api.
+			\item Shazam api trả về metadata.
+			\item Recognition controller so khớp metadata trong database và trả về kết quả.
+			\item UI hiển thị kết quả được trả về từ Recognition controller và người dùng có thể nhấn phát ngay nếu nhận diện thành công.
+		  \end{enumerate}
+	\item \textbf{Activity Diagram:}
+		\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\textwidth]{Images/recognition_activity.png}
+				\caption{Activity Diagram - Recognition}
+	      \end{figure}
+\end{itemize}
+
+
+\input{deployment.tex}
+\input{development.tex}
+\input{advancedSection.tex}
+
+\input{UI_Implement.tex}
+
+\section{Nhận xét, đánh giá và hướng phát triển}
+\subsection{Kết quả đạt được}
+\cach Sau quá trình nghiên cứu, thiết kế và hiện thực hóa, nhóm phát triển đã xây dựng thành công hệ thống MusicHUB với các kết quả chính như sau:
+
+\begin{itemize}
+    \item \textbf{Về mặt chức năng:}
+    \begin{itemize}
+        \item Xây dựng hoàn thiện luồng nghiệp vụ cốt lõi: Đăng ký/Đăng nhập, Upload nhạc, Quản lý Playlist và Phát nhạc trực tuyến.
+        \item Hiện thực hóa thành công tính năng \textbf{Adaptive Bitrate Streaming}, cho phép hệ thống tự động chuyển đổi giữa các mức chất lượng (64kbps, 128kbps, 320kbps) tùy thuộc vào băng thông mạng, đảm bảo trải nghiệm nghe nhạc không bị gián đoạn.
+        \item Tích hợp các tính năng nâng cao mang lại trải nghiệm thú vị cho người dùng như: Đồng bộ lời bài hát (Lyric Sync) và Nhận diện bài hát qua giai điệu (Audio Fingerprinting) với độ chính xác khá tốt.
+        \item Hệ thống gợi ý bài hát bước đầu hoạt động hiệu quả dựa trên lịch sử nghe nhạc gần đây của người dùng.
+    \end{itemize}
+
+    \item \textbf{Về mặt giao diện và trải nghiệm người dùng (UI/UX):}
+    \begin{itemize}
+        \item Giao diện được thiết kế hiện đại, trực quan, giúp người dùng mới dễ dàng làm quen trong thời gian ngắn.
+        \item Hỗ trợ tốt trên đa nền tảng (Web và Mobile Web), đáp ứng nhu cầu sử dụng linh hoạt trên nhiều thiết bị.
+    \end{itemize}
+
+    \item \textbf{Về mặt kỹ thuật:}
+    \begin{itemize}
+        \item Hệ thống đáp ứng được các yêu cầu khắt khe về hiệu năng, với độ trễ khi bắt đầu phát nhạc thấp ($\leq 800$ms) và khả năng xử lý đồng thời nhiều yêu cầu.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Hạn chế}
+\cach Bên cạnh những kết quả đạt được, hệ thống vẫn còn tồn tại một số hạn chế cần khắc phục:
+
+\begin{itemize}
+    \item \textbf{Thuật toán gợi ý:} Hiện tại thuật toán gợi ý chủ yếu dựa trên lịch sử nghe gần đây và lọc cộng tác cơ bản. Hệ thống gặp khó khăn với bài toán "Cold Start" (Khởi động lạnh) khi chưa có đủ dữ liệu hành vi của người dùng mới để đưa ra gợi ý chính xác.
+    \item \textbf{Kho dữ liệu nhạc:} Do giới hạn về nguồn lực và bản quyền trong phạm vi đồ án, số lượng bài hát và metadata trong cơ sở dữ liệu còn hạn chế so với các nền tảng thương mại thực tế.
+    \item \textbf{Tính năng nhận diện:} Chức năng nhận diện bài hát hoạt động tốt trong môi trường ít tạp âm, nhưng độ chính xác giảm xuống khi môi trường có nhiều tiếng ồn hoặc chất lượng thu âm từ thiết bị người dùng kém.
+    \item \textbf{Khả năng mở rộng thời gian thực:} Chưa kiểm chứng được khả năng chịu tải thực tế với quy mô rất lớn (trên 10.000 người dùng đồng thời) trong môi trường production.
+\end{itemize}
+
+\subsection{So sánh tính năng với các nền tảng âm nhạc hiện có}
+\cach Các nền tảng nghe nhạc phổ biến hiện nay như Spotify và Apple Music tập trung mạnh vào kho nhạc bản quyền và đề xuất cá nhân hóa, nhưng không cho phép người dùng trực tiếp đăng tải nội dung và thiếu yếu tố tương tác cộng đồng theo từng bài hát. SoundCloud mở hơn cho nghệ sĩ độc lập nhưng chưa tích hợp khả năng nhận diện bài hát tự động, khiến người dùng phải sử dụng thêm ứng dụng khác như Shazam khi muốn xác định tên bài hát. Shazam lại chỉ giải quyết bài toán nhận diện, không hỗ trợ nghe, tải lên hay tạo không gian thảo luận. Từ những hạn chế đó, ứng dụng được đề xuất hướng đến việc kết hợp ba giá trị chính sau mà hiện chưa có sản phẩm nào đáp ứng đầy đủ:
+
+\begin{itemize}
+	\item \textbf{Nền tảng mở:} bất kỳ người dùng nào cũng có thể đăng tải sản phẩm âm nhạc.
+	\item \textbf{Nhận diện âm thanh tích hợp:} người dùng nhận diện một bài hát và nghe ngay trong cùng hệ thống.
+	\item \textbf{Tương tác cộng đồng:} người dùng có thể bình luận, thảo luận từng bài hát — tạo hệ sinh thái xã hội cho âm nhạc.
+\end{itemize}
+
+\subsection{Hướng phát triển trong tương lai}
+\cach Để MusicHUB có thể cạnh tranh với các nền tảng thực tế và đáp ứng nhu cầu ngày càng cao của người dùng, nhóm phát triển đề xuất lộ trình nâng cấp hệ thống theo các hướng sau:
+
+\subsubsection{Về mặt Công nghệ và Kỹ thuật}
+\begin{enumerate}
+    \item \textbf{Nâng cấp hệ thống gợi ý với Deep Learning:}
+    Thay thế các thuật toán lọc cộng tác cơ bản bằng các mô hình học sâu (Deep Learning). Hệ thống sẽ phân tích không chỉ lịch sử nghe mà còn cả ngữ cảnh thời gian thực (thời gian trong ngày, thời tiết, vị trí địa lý) để đưa ra gợi ý chính xác nhất về "tâm trạng" (mood) của người dùng.
+    
+    \item \textbf{Phát triển Ứng dụng gốc (Native Mobile App):}
+    Hiện tại hệ thống hoạt động trên nền tảng Web/Mobile Web. Hướng phát triển tiếp theo là xây dựng ứng dụng Native (sử dụng React Native hoặc Flutter) để tận dụng tối đa phần cứng thiết bị, cho phép thực hiện các tính năng quan trọng như:
+    \begin{itemize}
+        \item \textbf{Chế độ Offline:} Tải nhạc về bộ nhớ thiết bị để nghe khi không có Internet.
+        \item \textbf{Background Processing:} Tối ưu hóa việc phát nhạc khi tắt màn hình và điều khiển qua tai nghe bluetooth tốt hơn.
+    \end{itemize}
+    
+\end{enumerate}
+
+\subsubsection{Về mặt Tính năng và Nội dung}
+\begin{enumerate}
+    \item \textbf{Mở rộng loại hình nội dung (Podcast \& Audiobooks):}
+    Tận dụng hạ tầng streaming hiện có để hỗ trợ thêm các định dạng âm thanh lời nói (Spoken word) như Podcast và Sách nói, biến MusicHUB thành một nền tảng âm thanh tổng hợp.
+    
+    \item \textbf{Tính năng Karaoke và Chấm điểm:}
+    Dựa trên tính năng Lyric Sync đã có, hệ thống có thể phát triển thêm chế độ Karaoke, tách giọng hát ca sĩ (Vocal Remover bằng AI) và chấm điểm giọng hát người dùng, tăng tính giải trí và tương tác.
+    
+    \item \textbf{Phòng nghe nhạc chung (Social Listening Party):}
+    Tạo môi trường tương tác thời gian thực, cho phép người dùng tạo "phòng ảo", mời bạn bè cùng nghe một playlist đồng bộ, chat voice/text và thả cảm xúc (reaction) ngay trên giao diện phát nhạc.
+\end{enumerate}
+
+\subsubsection{Về mặt Thương mại và Quản lý}
+\begin{enumerate}
+    \item \textbf{Mô hình kiếm tiền (Monetization):}
+    \begin{itemize}
+        \item Tích hợp quảng cáo âm thanh (Audio Ads) cho tài khoản miễn phí.
+        \item Triển khai gói đăng ký Premium (thanh toán qua Ví điện tử/Visa) để loại bỏ quảng cáo và mở khóa chất lượng nhạc Lossless.
+    \end{itemize}
+    
+    \item \textbf{Cổng thông tin dành cho Nghệ sĩ (MusicHUB for Artists):}
+    Cung cấp dashboard chuyên sâu hơn cho nghệ sĩ, bao gồm phân tích nhân khẩu học của người nghe, bản đồ phân bố fan hâm mộ, và công cụ quảng bá bài hát mới trực tiếp đến đối tượng mục tiêu.
+    
+    \item \textbf{Ứng dụng Blockchain trong quản lý bản quyền:}
+    Nghiên cứu tích hợp Smart Contracts để minh bạch hóa việc chi trả tiền tác quyền (Royalties) cho nghệ sĩ dựa trên số lượt nghe thực tế, đảm bảo quyền lợi công bằng cho người sáng tạo nội dung.
+\end{enumerate}
 \end{document}
