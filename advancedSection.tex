@@ -1,0 +1,23 @@
+\section{Advanced section}
+\subsection{Cloud Deployment and Service (Triển khai và dịch vụ đám mây)}
+\cach Hệ thống được triển khai theo mô hình tách lớp: Frontend chạy trên Vercel và Backend chạy trên Railway. Vercel hỗ trợ triển khai ứng dụng web với CDN toàn cầu và khả năng mở rộng tự động, trong khi Railway cung cấp môi trường chạy dịch vụ backend dạng container, dễ quản lý biến môi trường và theo dõi log. Việc sử dụng hai nền tảng cloud giúp hệ thống đáp ứng tốt nhu cầu mở rộng và giảm chi phí vận hành hạ tầng.
+\begin{itemize}
+    \item \textbf{Cloud Platform Setup:} Thay vì sử dụng AWS, Google Cloud hay Azure, nhóm lựa chọn Vercel và Railway vì phù hợp quy mô dự án và hỗ trợ tự động build–deploy trực tiếp từ Git. Cả hai nền tảng đều đảm bảo khả năng scale linh hoạt mà không cần cấu hình máy chủ thủ công.
+    \item \textbf{Database Management:} Cơ sở dữ liệu MongoDB được triển khai trên môi trường cloud của Railway, hỗ trợ backup và snapshot tự động. Nhóm đã kiểm tra quá trình khôi phục dữ liệu từ một bản snapshot nhằm bảo đảm an toàn khi xảy ra sự cố hệ thống.
+    \item \textbf{Continuous Deployment:} CI/CD được thực hiện thông qua GitHub tích hợp với Vercel và Railway. Khi có commit mới lên repository, Vercel tự động build và triển khai frontend, trong khi Railway cập nhật backend lên môi trường production. Quy trình này đảm bảo continuous delivery mà không cần thao tác thủ công, giúp nâng cấp nhanh và ổn định.
+\end{itemize}
+
+Link web MusicHUB: \href{https://musichub-hcmut.vercel.app/}{musichub-hcmut.vercel.app}
+
+\subsection{API Integration (Tích hợp API)}
+Hệ thống được xây dựng với định hướng tích hợp nhiều API từ các dịch vụ bên thứ ba nhằm mở rộng chức năng và giảm chi phí phát triển. Việc tích hợp API đóng vai trò trung tâm trong bảo mật, lưu trữ dữ liệu đa phương tiện và tương tác âm thanh. Nhờ đó, hệ thống có thể tận dụng các giải pháp có sẵn ngoài thị trường thay vì phải tự triển khai từ đầu.
+\begin{itemize}
+    \item \textbf{Cloud Platform Setup:} Ứng dụng sử dụng mô hình giao tiếp đa dịch vụ thông qua API, trong đó:
+    \begin{itemize}
+        \item Người dùng có thể xác thực bằng Google thông qua OAuth 2.0, cho phép hệ thống lấy thông tin cơ bản (email, avatar) mà không yêu cầu tạo tài khoản thủ công.
+        \item hệ thống tích hợp Shazam API để nhận diện bài hát, backend gửi dữ liệu âm thanh được thu âm lên API và nhận về metadata phục vụ việc hiển thị trong ứng dụng.
+        \item Hệ thống còn sử dụng Cloudinary API để lưu trữ và xử lý hình ảnh (avatar, ảnh cover bài hát) thông qua cơ chế upload trực tiếp, giúp backend không phải quản lý file storage cục bộ.
+    \end{itemize}
+    \item \textbf{RESTful API Design:} Ứng dụng lựa chọn RESTful API cho backend vì phù hợp mô hình CRUD và dễ triển khai với Node.js. Các endpoint được thiết kế theo nguyên tắc resource-based URL, ví dụ \textbf{\texttt{/api/auth/google}} cho xác thực Google. Tất cả tuân thủ chuẩn HTTP Methods như \textbf{\texttt{GET}} để truy vấn dữ liệu bài hát, \textbf{\texttt{POST}} để upload file và thực hiện đăng nhập, cùng với \textbf{\texttt{DELETE}} nếu cần xoá tài nguyên. Backend hoạt động stateless, tách biệt client–server và đảm bảo giao tiếp thống nhất qua JSON.
+    \item \textbf{Testing and Validation:} Các API được kiểm thử bằng Postman để xác minh quy trình request–response, mô phỏng tình huống truy cập hợp lệ, sai token hoặc thiếu param. Các lỗi và mã trạng thái HTTP được xử lý theo tiêu chuẩn, ví dụ \textbf{\texttt{400 Bad Request}} khi payload upload Cloudinary không đúng, và \textbf{\texttt{500 Internal Server Error}} cho sự cố kết nối Shazam. Ngoài test thủ công, backend bổ sung unit test cho các hàm upload và xác thực, đồng thời thực hiện integration test với môi trường staging để đảm bảo giao tiếp ổn định giữa backend, Cloudinary và Shazam API trước khi triển khai hệ thống.
+\end{itemize}
